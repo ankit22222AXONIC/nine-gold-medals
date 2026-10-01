@@ -32,7 +32,7 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 - Poem, exercise material and textbook illustrations © NCERT / *Kaveri*, Class IX English.
 - "Nine Gold Medals" © David Roth. Poet photograph from the video of the song, used for educational illustration.
 - Olympic rings, Paralympic Agitos and the Special Olympics emblem are the properties of their respective organisations, used here for educational illustration.
-- Hero and stanza illustrations supplied by the authors for this presentation.
+- Hero and stanzas 1–4 illustrations supplied by the authors; stanzas 5–8 illustrated for this presentation.
 - Interactions and quizzes created for this presentation.
 
 Made by **Ankit** & **Vaibhav**.
