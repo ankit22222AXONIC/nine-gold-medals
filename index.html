@@ -380,7 +380,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
 
 
 /* ---------- hero as a full-screen backdrop ---------- */
-.hero{position:relative;display:flex;align-items:center;min-height:calc(100vh - 58px);padding:96px 0;overflow:hidden;background:#0b0e13}
+.hero{position:relative;display:flex;align-items:center;min-height:100vh;padding:96px 0;overflow:hidden;background:#0b0e13}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;
   border:0;border-radius:0;box-shadow:none;z-index:0;filter:brightness(.8) saturate(.96)}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
@@ -568,26 +568,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
 </svg>
 
 <div class="pop" id="pop" role="tooltip"><span class="pop-k"></span><span class="pop-t"></span></div>
-
-<header class="topbar">
-  <div class="wrap">
-    <a class="wordmark" href="#top">
-      <svg width="22" height="22" viewBox="0 0 64 64" style="color:var(--gold)"><use href="#medal"/></svg>
-      Nine Gold Medals
-    </a>
-    <nav class="topnav">
-      <a href="#film">The Poem</a>
-      <a href="#craft">Craft</a>
-      <a href="#quiz">Quiz</a>
-      <a href="#beyond">Beyond</a>
-      <a href="#poet" class="hot">The Poet</a>
-    </nav>
-    <button class="tbtn" id="themeBtn" aria-label="Toggle night mode" title="Toggle night mode">
-      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M19.4 4.6L18 6M6 18l-1.4 1.4"/></svg>
-      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z"/></svg>
-    </button>
-  </div>
-</header>
 
 <main id="top">
 
@@ -1246,11 +1226,12 @@ var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelect
 /* ---------- theme ---------- */
 var root=document.documentElement;
 try{var t=localStorage.getItem("ngm-theme");if(t){root.setAttribute("data-theme",t)}}catch(e){}
-$("#themeBtn").addEventListener("click",function(){
+var tb=$("#themeBtn");
+if(tb){tb.addEventListener("click",function(){
   var next=root.getAttribute("data-theme")==="dark"?"light":"dark";
   root.setAttribute("data-theme",next);
   try{localStorage.setItem("ngm-theme",next)}catch(e){}
-});
+});}
 
 /* ---------- reveal on scroll ---------- */
 var io=new IntersectionObserver(function(es){
