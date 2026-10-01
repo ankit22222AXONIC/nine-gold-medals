@@ -1032,7 +1032,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
     <div class="sec-head rv">
       <p class="kicker">Check your understanding</p>
       <h2>The quiz arena</h2>
-      <p>Three challenges from your textbook&rsquo;s exercises &mdash; match the words, name the stanzas, and answer like an examiner.</p>
+      <p>Two challenges from your textbook&rsquo;s exercises &mdash; match the words, then answer like an examiner.</p>
     </div>
 
     <!-- vocab match -->
@@ -1048,10 +1048,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
       </div>
     </div>
 
-    <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:44px 0 16px">02 &middot; Identify the gist of each stanza</h3>
-    <div class="quiz-card rv" id="gistQuiz"></div>
-
-    <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:44px 0 16px">03 &middot; Critical reflection</h3>
+    <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:44px 0 16px">02 &middot; Critical reflection</h3>
     <div class="quiz-card rv" id="mcqQuiz"></div>
   </div>
 </section>
@@ -1389,28 +1386,6 @@ $("#matchReset").addEventListener("click",buildMatch);
 buildMatch();
 
 /* ---------- quiz engine ---------- */
-var STANZA1={
-  1:"\u201CThe athletes had come from all over the country\u2026\u201D",
-  2:"\u201CThe spectators gathered around the old field\u2026\u201D",
-  3:"\u201CThe blocks were all lined up for those who would use them\u2026\u201D",
-  4:"\u201CThe signal was given, the pistol exploded\u2026\u201D",
-  5:"\u201CHe gave out a cry of frustration and anguish\u2026\u201D",
-  6:"\u201CThe eight other runners pulled up on their heels\u2026\u201D",
-  7:"\u201CThen all the nine runners joined hands and continued\u2026\u201D",
-  8:"\u201CThat\u2019s how the race ended, with nine gold medals\u2026\u201D"
-};
-function gistQ(text,stanzaNo){
-  return {q:text,options:["Stanza 1","Stanza 2","Stanza 3","Stanza 4","Stanza 5","Stanza 6","Stanza 7","Stanza 8"],
-    correct:stanzaNo-1,explain:"Stanza "+stanzaNo+" opens: "+STANZA1[stanzaNo]};
-}
-var gistQuiz=[
-  gistQ("The race finished with nine athletes holding hands and winning the well-deserved gold medals; their smiles, and the spectators standing to applaud, conveyed everything.",8),
-  gistQ("Participants got ready at the starting line, and nine determined athletes waited for the sound of the gun.",3),
-  gistQ("Athletes from various parts of the country had gone through months of training; they dreamed of winning a medal.",1),
-  gistQ("The eight athletes stopped to help the young fallen athlete to his feet, forgetting that they were competing.",6),
-  gistQ("Nine athletes walked hand in hand; this gesture represented the ethos of the Special Olympics.",7),
-  gistQ("The young athlete felt his dreams were shattered and cried in pain and disappointment, but something unique happened.",5)
-];
 var mcqQuiz=[
   {q:"The phrase \u2018pulled up on their heels\u2019 means the runners ______.",
    options:["moved aside","stopped running","tried to run faster","jumped ahead"],correct:1,
@@ -1474,7 +1449,6 @@ function buildQuiz(mountId,qs,label){
   }
   render();
 }
-buildQuiz("gistQuiz",gistQuiz,"Gist match");
 buildQuiz("mcqQuiz",mcqQuiz,"Critical reflection");
 })();
 </script>
