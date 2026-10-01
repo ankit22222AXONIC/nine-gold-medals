@@ -15,14 +15,14 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 | The Poem | All 8 stanzas, each with its own illustration plate — navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
 | Gallery | Chapter title card, full-scene illustrations and the original textbook artwork |
 | Poetic devices | Alliteration, imagery, symbolism, tone, mood and message with examples from the poem |
-| Quiz | Vocabulary matching and critical-reflection MCQs with instant feedback |
+| Quiz | Vocabulary matching, stanza-gist quiz and critical-reflection MCQs with instant feedback |
 | Beyond the text | Special Olympics Berlin 2023 Indian medallists, Olympics timeline |
 | The Poet | About David Roth, with a photograph from his video of the song |
 
 ## Features
 
 - **Interactive stanza reader** — 8 illustrated plates, glossary pop-ups, keyboard and touch navigation
-- **Two quizzes** — a vocabulary matching game and an MCQ set, each with explanations and a score
+- **Three quizzes** — matching game, gist quiz, MCQ set, each with explanations and a score
 - **Night mode** — toggle for dark classrooms
 - **Responsive** — works on phones, tablets and projectors
 - **Self-contained** — a single HTML file (~1.1 MB), no external assets
