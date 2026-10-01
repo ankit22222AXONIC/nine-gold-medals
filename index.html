@@ -360,6 +360,24 @@ footer .madeby b{color:var(--gold);font-weight:600}
   .fcredit{display:none}
 }
 
+
+/* ---------- special olympics clips ---------- */
+#clips{padding:54px 0 20px}
+.clip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:26px}
+.clip{margin:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.clip-face{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;cursor:pointer;
+  background:#0b0e13 center/cover no-repeat}
+.clip-face::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(6,8,12,.5),rgba(6,8,12,.06) 62%)}
+.clip-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:60px;height:60px;border-radius:50%;
+  background:rgba(232,182,44,.96);color:#1b1405;display:grid;place-items:center;font-size:19px;padding-left:4px;
+  box-shadow:0 12px 32px -10px rgba(0,0,0,.7);transition:transform .16s ease}
+.clip-face:hover .clip-play{transform:translate(-50%,-50%) scale(1.07)}
+.clip iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+.clip-meta{padding:13px 16px;border-top:1px solid var(--line-soft)}
+.clip-meta b{display:block;font-size:15.5px;color:var(--ink);line-height:1.35;margin-bottom:5px}
+.clip-meta span{font-family:var(--f-mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.clip-note{margin-top:18px;font-size:13.5px;color:var(--ink-2);line-height:1.6}
+
 </style>
 </head>
 
@@ -1131,6 +1149,38 @@ footer .madeby b{color:var(--gold);font-weight:600}
     </div>
   </div>
 </section>
+<!-- ================= SPECIAL OLYMPICS CLIPS ================= -->
+<section id="clips">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">See it for real</p>
+      <h2>The Special Olympics, in motion</h2>
+      <p>This poem&rsquo;s race is fiction, but the games are real. Three clips from the World Games &mdash; tap one to play it.</p>
+    </div>
+    <div class="clip-grid rv">
+        <figure class="clip" data-id="cfSJf1jJ8AE" data-title="Special Olympics World Games Berlin 2023 &mdash; Highlights">
+          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/cfSJf1jJ8AE/hqdefault.jpg')" aria-label="Play: Special Olympics World Games Berlin 2023   Highlights">
+            <span class="clip-play" aria-hidden="true">&#9654;</span>
+          </button>
+          <figcaption class="clip-meta"><b>Special Olympics World Games Berlin 2023 &mdash; Highlights</b><span>Special Olympics Europe Eurasia &middot; the Games the poem&rsquo;s story belongs to</span></figcaption>
+        </figure>
+        <figure class="clip" data-id="fXu9pB9yXzQ" data-title="Special Olympics World Winter Games &mdash; Asia Pacific Highlights">
+          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/fXu9pB9yXzQ/hqdefault.jpg')" aria-label="Play: Special Olympics World Winter Games   Asia Pacific Highlights">
+            <span class="clip-play" aria-hidden="true">&#9654;</span>
+          </button>
+          <figcaption class="clip-meta"><b>Special Olympics World Winter Games &mdash; Asia Pacific Highlights</b><span>Special Olympics Asia Pacific &middot; the movement across our region</span></figcaption>
+        </figure>
+        <figure class="clip" data-id="QQUTKvOB10Q" data-title="Highlights: Special Olympics World Winter Games 2025, Turin">
+          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/QQUTKvOB10Q/hqdefault.jpg')" aria-label="Play: Highlights: Special Olympics World Winter Games 2025, Turin">
+            <span class="clip-play" aria-hidden="true">&#9654;</span>
+          </button>
+          <figcaption class="clip-meta"><b>Highlights: Special Olympics World Winter Games 2025, Turin</b><span>Prasar Bharati Sports &middot; India&rsquo;s 49-member contingent in Turin</span></figcaption>
+        </figure>
+    </div>
+    <p class="clip-note">These clips play from their own channels on YouTube and remain the property of Special Olympics and the respective broadcasters. An internet connection is needed for the clips only.</p>
+  </div>
+</section>
+
 
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
@@ -1536,6 +1586,24 @@ buildQuiz("mcqQuiz",mcqQuiz,"Critical reflection");
 
   render();
   timeEl.textContent='0:00 / '+fmt(total);
+})();
+
+</script>
+<script>
+
+(function(){
+  [].slice.call(document.querySelectorAll('.clip')).forEach(function(c){
+    var f=c.querySelector('.clip-face'); if(!f) return;
+    f.addEventListener('click',function(){
+      var id=c.getAttribute('data-id');
+      var fr=document.createElement('iframe');
+      fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';
+      fr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      fr.setAttribute('allowfullscreen','');
+      fr.setAttribute('title',c.getAttribute('data-title')||'Special Olympics video');
+      f.replaceWith(fr);
+    });
+  });
 })();
 
 </script>
