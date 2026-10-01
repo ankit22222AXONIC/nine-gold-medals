@@ -10,10 +10,10 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 
 | Section | What it does |
 |---|---|
-| Hero | Plan-view running track with nine athletes, chapter facts |
+| Hero | Chapter illustration banner and the key facts at a glance |
 | Warm-up | Olympics / Paralympics / Special Olympics explainer with the official symbols, plus an empathy–sympathy–compassion game |
-| The Poem | All 8 stanzas, each with its own illustration plate — navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
-| Gallery | Chapter title card, full-scene illustrations and the original textbook artwork |
+| The Poem | All 8 stanzas, each with its own illustration — navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
+| Gallery | The original artwork printed in the *Kaveri* textbook |
 | Poetic devices | Alliteration, imagery, symbolism, tone, mood and message with examples from the poem |
 | Quiz | Vocabulary matching, stanza-gist quiz and critical-reflection MCQs with instant feedback |
 | Beyond the text | Special Olympics Berlin 2023 Indian medallists, Olympics timeline |
@@ -32,6 +32,7 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 - Poem, exercise material and textbook illustrations © NCERT / *Kaveri*, Class IX English.
 - "Nine Gold Medals" © David Roth. Poet photograph from the video of the song, used for educational illustration.
 - Olympic rings, Paralympic Agitos and the Special Olympics emblem are the properties of their respective organisations, used here for educational illustration.
-- Vector plates, interactions and quizzes created for this presentation.
+- Hero and stanza illustrations supplied by the authors for this presentation.
+- Interactions and quizzes created for this presentation.
 
 Made by **Ankit** & **Vaibhav**.
