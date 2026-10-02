@@ -16,7 +16,6 @@ connection is needed only for the three Special Olympics clips, which stream fro
 | The Poem | All 8 stanzas — each stanza's illustration fills the page behind its text; navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
 | Poetic devices | Alliteration, imagery, symbolism, tone, mood and message with examples from the poem |
 | Quiz | Vocabulary matching and critical-reflection MCQs with instant feedback |
-| Beyond the text | Special Olympics Berlin 2023 Indian medallists, Olympics timeline |
 | Special Olympics clips | Three World Games videos, played bare with their own controls (need a connection) |
 | The Poet | About David Roth, with a photograph from his video of the song |
 
