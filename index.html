@@ -172,9 +172,6 @@ svg.rings .bk{stroke:#232f3b}
 .result.show{display:block;animation:fadeUp .5s ease}
 .result .medal{font-family:var(--f-display);font-style:italic;font-weight:900;font-size:clamp(34px,4.6vw,52px);color:var(--gold)}
 .result p{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;letter-spacing:.06em}
-
-/* vocab match */
-@media (max-width:720px){}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
@@ -301,7 +298,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .game-body{padding:18px 20px 20px;flex:1}
 .game-body h3{font-size:21px;font-style:italic;margin:5px 0 9px}
 .game-body p{font-size:15px;line-height:1.6;color:var(--ink);margin:0}
-.eq-card .verdict{display:none}
+
 
 /* ---------- empathy cards: larger, bolder, with choices ---------- */
 .empathy-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
@@ -317,7 +314,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .eq-opt.locked{cursor:default;pointer-events:none;opacity:.45}
 .eq-opt.is-ans{opacity:1;border-color:var(--sage);background:var(--sage-soft);color:var(--sage)}
 .eq-opt.is-pick{opacity:1;border-color:var(--clay);background:var(--clay-soft);color:var(--clay)}
-.eq-card .verdict{display:none}
+
 .eq-card.right .verdict,.eq-card.wrong .verdict{display:block;font-size:16px;line-height:1.5;color:var(--ink)}
 .eq-card .verdict b{color:var(--gold)}
 @media (max-width:880px){
@@ -404,144 +401,16 @@ footer .madeby b{color:var(--gold);font-weight:600}
 <!-- shared pictogram symbols (Munich-72 style, stroke figures) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
-<symbol id="p-run" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M40 21.5 L34 29 L27.5 33.5" stroke="var(--skin,#e8b78d)" stroke-width="4.7"/>
-    <path d="M29.5 32.5 L20.5 41 L12.5 44" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M11.5 44.5 L6 48.5" stroke="#2a3542" stroke-width="4"/>
-    <path d="M43 18 L29.5 32" stroke="var(--shirt,#53708a)" stroke-width="8.6"/>
-    <path d="M30 31 L26.5 36" stroke="var(--shorts,#a84a2b)" stroke-width="8.6"/>
-    <path d="M41.5 21 L48 27 L54.5 21.5" stroke="var(--skin,#e8b78d)" stroke-width="4.7"/>
-    <path d="M29.5 32.5 L39 36.5 L43 47.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M42.5 48.5 L49 49.5" stroke="#2a3542" stroke-width="4"/>
-    <path d="M43.5 18.5 L46 14.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-  </g>
-  <circle cx="46.5" cy="11" r="4.6" fill="var(--skin,#e8b78d)"/>
-  <path d="M41.9 11 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-runL" viewBox="0 0 64 64">
-  <g transform="translate(64 0) scale(-1 1)"><use href="#p-run"/></g>
-</symbol>
-<symbol id="p-crouch" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M30 39.5 L19.5 48.5 L12 54" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M11 54.5 L16.5 57.5" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M47 30 L30 39.5" stroke="var(--shirt,#53708a)" stroke-width="8.4"/>
-    <path d="M30 38.5 L26.5 43.5" stroke="var(--shorts,#a84a2b)" stroke-width="8.4"/>
-    <path d="M44.5 33.5 L48.5 47" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M30 39.5 L40.5 45 L42 55" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M41.5 56.5 L48 56.5" stroke="#2a3542" stroke-width="4"/>
-    <path d="M47.5 30.5 L49.5 26.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-  </g>
-  <circle cx="50.5" cy="22.5" r="4.6" fill="var(--skin,#e8b78d)"/>
-  <path d="M45.9 22.5 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-fall" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M47 52 L28.5 50" stroke="var(--shirt,#53708a)" stroke-width="8.2"/>
-    <path d="M48.5 51.5 L51.5 49" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M29 48.5 L26 53" stroke="var(--shorts,#a84a2b)" stroke-width="8.2"/>
-    <path d="M44 50.5 L40 40.5" stroke="var(--skin,#e8b78d)" stroke-width="4.4"/>
-    <path d="M46 51 L52 46" stroke="var(--skin,#e8b78d)" stroke-width="4.4"/>
-    <path d="M29 50 L20.5 42.5 L14 45.5" stroke="var(--skin,#e8b78d)" stroke-width="4.8"/>
-    <path d="M12.5 44.5 L17.5 47.5" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M31 51.5 L23.5 55" stroke="var(--skin,#e8b78d)" stroke-width="4.8"/>
-    <path d="M23 55.5 L29 56.5" stroke="#2a3542" stroke-width="3.8"/>
-  </g>
-  <circle cx="53" cy="47.5" r="4.5" fill="var(--skin,#e8b78d)"/>
-  <path d="M48.5 47.5 a4.5 4.5 0 0 1 9 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-kneel" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 25 L34.5 37.5" stroke="var(--shirt,#6e4a37)" stroke-width="8.4"/>
-    <path d="M42.5 25.5 L44.5 21.5" stroke="var(--skin,#c98e63)" stroke-width="3.2"/>
-    <path d="M34.5 37.5 L45 43" stroke="var(--shorts,#54382b)" stroke-width="7.6"/>
-    <path d="M34.5 37.5 L28 44.5" stroke="var(--skin,#c98e63)" stroke-width="4.2"/>
-    <path d="M26.5 45 L31.5 46.5" stroke="#2a3542" stroke-width="3.4"/>
-    <path d="M45 43 L45 53.5" stroke="var(--skin,#c98e63)" stroke-width="4.6"/>
-    <path d="M43.5 55 L49 55" stroke="#2a3542" stroke-width="3.6"/>
-    <path d="M40 29 L46 49" stroke="var(--skin,#c98e63)" stroke-width="4.6"/>
-  </g>
-  <circle cx="45" cy="18.5" r="4.6" fill="var(--skin,#c98e63)"/>
-  <path d="M40.4 18.5 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#33261c)"/>
-</symbol>
-<symbol id="p-walk" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M40 16.5 L35 35.5" stroke="var(--shirt,#53708a)" stroke-width="8.2"/>
-    <path d="M40.5 17 L41.5 13.2" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M38 20.5 L31.5 29.5" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M38 20.5 L44.5 28.5" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M35 34.5 L34.2 40" stroke="var(--shorts,#a84a2b)" stroke-width="8.2"/>
-    <path d="M35 36 L42.5 49.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M42 50.5 L48.5 51" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M35 36 L27.5 47.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M26.5 47 L32.5 48" stroke="#2a3542" stroke-width="3.8"/>
-  </g>
-  <circle cx="42" cy="10" r="4.6" fill="var(--skin,#e8b78d)"/>
-  <path d="M37.4 10 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-hold" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 17 L32 38" stroke="var(--shirt,#53708a)" stroke-width="8.4"/>
-    <path d="M32 17 L32 13.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M32 21 L20 33" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M32 21 L44 33" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M32 37 L32 42.5" stroke="var(--shorts,#a84a2b)" stroke-width="8.4"/>
-    <path d="M32 38.5 L27.5 54" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M32 38.5 L36.5 54" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M25.5 55.5 L30 55.5" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M34 55.5 L38.5 55.5" stroke="#2a3542" stroke-width="3.8"/>
-  </g>
-  <circle cx="32" cy="10" r="4.9" fill="var(--skin,#e8b78d)"/>
-  <path d="M27.1 10 a4.9 4.9 0 0 1 9.8 0 z" fill="var(--hair,#3a2a1c)"/>
-  <circle cx="29.9" cy="10.3" r="0.9" fill="#2a3542"/>
-  <circle cx="34.1" cy="10.3" r="0.9" fill="#2a3542"/>
-</symbol>
-<symbol id="p-reach" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M43.5 20 L33.5 34.5" stroke="var(--shirt,#a8791d)" stroke-width="8.2"/>
-    <path d="M44 20.5 L46.5 16.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M41.5 23 L56.5 36.5" stroke="var(--skin,#e8b78d)" stroke-width="4.6"/>
-    <path d="M42 25 L36.5 33.5" stroke="var(--skin,#e8b78d)" stroke-width="4.2"/>
-    <path d="M33.5 33.5 L30 38" stroke="var(--shorts,#77591a)" stroke-width="8.2"/>
-    <path d="M33.5 35 L41.5 44.5 L41.5 54.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M41 56 L47.5 56.5" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M33.5 35 L25 45.5 L17.5 43.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M15 42.5 L20.5 44.5" stroke="#2a3542" stroke-width="3.8"/>
-  </g>
-  <circle cx="47.5" cy="14.5" r="4.6" fill="var(--skin,#e8b78d)"/>
-  <path d="M42.9 14.5 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-cheer" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 18.5 L32 41" stroke="var(--shirt,#53708a)" stroke-width="8.4"/>
-    <path d="M32 19 L32 15.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M32 22.5 L22.5 12.5" stroke="var(--skin,#e8b78d)" stroke-width="4.5"/>
-    <path d="M32 22.5 L41.5 12.5" stroke="var(--skin,#e8b78d)" stroke-width="4.5"/>
-    <path d="M32 40 L32 44.5" stroke="var(--shorts,#a84a2b)" stroke-width="8.4"/>
-    <path d="M32 41 L28 54" stroke="var(--skin,#e8b78d)" stroke-width="4.7"/>
-    <path d="M32 41 L36 54" stroke="var(--skin,#e8b78d)" stroke-width="4.7"/>
-    <path d="M26.5 55.5 L30.5 55.5" stroke="#2a3542" stroke-width="3.6"/>
-    <path d="M33.5 55.5 L37.5 55.5" stroke="#2a3542" stroke-width="3.6"/>
-  </g>
-  <circle cx="32" cy="11.5" r="4.8" fill="var(--skin,#e8b78d)"/>
-  <path d="M27.2 11.5 a4.8 4.8 0 0 1 9.6 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
-<symbol id="p-stand" viewBox="0 0 64 64">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M30 16.5 L30 36.5" stroke="var(--shirt,#53708a)" stroke-width="8.2"/>
-    <path d="M30 17 L30 13.5" stroke="var(--skin,#e8b78d)" stroke-width="3.2"/>
-    <path d="M30 20 L40 11" stroke="var(--skin,#e8b78d)" stroke-width="4.4"/>
-    <path d="M30 20 L22.5 29.5" stroke="var(--skin,#e8b78d)" stroke-width="4.2"/>
-    <path d="M30 29 L30 34.5" stroke="var(--shorts,#a84a2b)" stroke-width="8.2"/>
-    <path d="M30 37 L25.5 53.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M24 54.5 L29.5 54.5" stroke="#2a3542" stroke-width="3.8"/>
-    <path d="M30 37 L34.5 53.5" stroke="var(--skin,#e8b78d)" stroke-width="5"/>
-    <path d="M30.5 54.5 L36 54.5" stroke="#2a3542" stroke-width="3.8"/>
-  </g>
-  <circle cx="30" cy="9.5" r="4.6" fill="var(--skin,#e8b78d)"/>
-  <path d="M25.4 9.5 a4.6 4.6 0 0 1 9.2 0 z" fill="var(--hair,#3a2a1c)"/>
-</symbol>
+
+
+
+
+
+
+
+
+
+
 <symbol id="medal" viewBox="0 0 64 64">
   <g fill="none" stroke="#6a6a5c" stroke-width="3.4" stroke-linecap="round">
     <path d="M22 4 L29 22"/><path d="M42 4 L35 22"/>
@@ -549,16 +418,8 @@ footer .madeby b{color:var(--gold);font-weight:600}
   <circle cx="32" cy="34" r="15" fill="currentColor"/>
   <circle cx="32" cy="34" r="9.5" fill="none" stroke="#f3ecd9" stroke-width="2.4"/>
 </symbol>
-<symbol id="sun" viewBox="0 0 64 64">
-  <g stroke="#a8791d" stroke-width="3.4" stroke-linecap="round">
-    <path d="M32 4 L32 12"/><path d="M32 52 L32 60"/><path d="M4 32 L12 32"/><path d="M52 32 L60 32"/>
-    <path d="M12 12 L18 18"/><path d="M46 46 L52 52"/><path d="M52 12 L46 18"/><path d="M18 46 L12 52"/>
-  </g>
-  <circle cx="32" cy="32" r="11" fill="#c9962e"/>
-</symbol>
-<symbol id="cloud" viewBox="0 0 64 40">
-  <path d="M12 32 Q8 20 22 20 Q24 8 38 11 Q52 6 54 19 Q64 22 60 30 Q58 35 48 34 L16 34 Q10 34 12 32 Z" fill="#d8d2bd"/>
-</symbol>
+
+
 </defs>
 </svg>
 
@@ -872,7 +733,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
 
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
-<!-- ================= GALLERY ================= -->
+
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
 <!-- ================= CRAFT ================= -->
@@ -922,7 +783,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
       <p>A challenge from your textbook&rsquo;s exercises &mdash; answer like an examiner.</p>
     </div>
 
-    <!-- vocab match -->
+    
         <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 16px">01 &middot; Critical reflection</h3>
     <div class="quiz-card rv" id="mcqQuiz"></div>
   </div>
@@ -930,7 +791,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
 
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
-<!-- ================= BEYOND ================= -->
+
 <!-- ================= SPECIAL OLYMPICS CLIPS ================= -->
 <section id="clips">
   <div class="wrap">
