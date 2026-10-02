@@ -450,6 +450,21 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;
   z-index:0;filter:brightness(.8) saturate(.96);display:block;border:0;pointer-events:none}
 
+
+/* ---------- clips: video only, our own controls ---------- */
+.clip-frame{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.clip-face{position:absolute;inset:0;aspect-ratio:auto}
+.clip-mount{position:absolute;inset:0}
+.clip-frame>iframe,.clip-mount iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;aspect-ratio:auto}
+.clip-ui{position:absolute;inset:0;z-index:3;cursor:pointer}
+.clip-toggle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;
+  background:rgba(6,8,12,.55);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:17px;padding:0 0 0 3px;
+  display:grid;place-items:center;cursor:pointer;opacity:0;transition:opacity .2s ease;
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.clip-frame:hover .clip-toggle,.clip-toggle.is-paused{opacity:1}
+.clip-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.22)}
+.clip-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9962e,#f6cf5e)}
+
 </style>
 </head>
 
@@ -1206,21 +1221,30 @@ footer .madeby b{color:var(--gold);font-weight:600}
     </div>
     <div class="clip-grid rv">
         <figure class="clip" data-id="cfSJf1jJ8AE" data-title="Special Olympics World Games Berlin 2023 &mdash; Highlights">
-          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/cfSJf1jJ8AE/hqdefault.jpg')" aria-label="Play: Special Olympics World Games Berlin 2023   Highlights">
+          <div class="clip-frame">
+            <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/cfSJf1jJ8AE/hqdefault.jpg')" aria-label="Play: Special Olympics World Games Berlin 2023   Highlights">
             <span class="clip-play" aria-hidden="true">&#9654;</span>
           </button>
+            <div class="clip-ui" hidden><button class="clip-toggle" type="button" aria-label="Play or pause">&#9654;</button><div class="clip-bar"><i></i></div></div>
+          </div>
           <figcaption class="clip-meta"><b>Special Olympics World Games Berlin 2023 &mdash; Highlights</b><span>Special Olympics Europe Eurasia &middot; the Games the poem&rsquo;s story belongs to</span></figcaption>
         </figure>
         <figure class="clip" data-id="fXu9pB9yXzQ" data-title="Special Olympics World Winter Games &mdash; Asia Pacific Highlights">
-          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/fXu9pB9yXzQ/hqdefault.jpg')" aria-label="Play: Special Olympics World Winter Games   Asia Pacific Highlights">
+          <div class="clip-frame">
+            <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/fXu9pB9yXzQ/hqdefault.jpg')" aria-label="Play: Special Olympics World Winter Games   Asia Pacific Highlights">
             <span class="clip-play" aria-hidden="true">&#9654;</span>
           </button>
+            <div class="clip-ui" hidden><button class="clip-toggle" type="button" aria-label="Play or pause">&#9654;</button><div class="clip-bar"><i></i></div></div>
+          </div>
           <figcaption class="clip-meta"><b>Special Olympics World Winter Games &mdash; Asia Pacific Highlights</b><span>Special Olympics Asia Pacific &middot; the movement across our region</span></figcaption>
         </figure>
         <figure class="clip" data-id="QQUTKvOB10Q" data-title="Highlights: Special Olympics World Winter Games 2025, Turin">
-          <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/QQUTKvOB10Q/hqdefault.jpg')" aria-label="Play: Highlights: Special Olympics World Winter Games 2025, Turin">
+          <div class="clip-frame">
+            <button class="clip-face" type="button" style="background-image:url('https://i.ytimg.com/vi/QQUTKvOB10Q/hqdefault.jpg')" aria-label="Play: Highlights: Special Olympics World Winter Games 2025, Turin">
             <span class="clip-play" aria-hidden="true">&#9654;</span>
           </button>
+            <div class="clip-ui" hidden><button class="clip-toggle" type="button" aria-label="Play or pause">&#9654;</button><div class="clip-bar"><i></i></div></div>
+          </div>
           <figcaption class="clip-meta"><b>Highlights: Special Olympics World Winter Games 2025, Turin</b><span>Prasar Bharati Sports &middot; India&rsquo;s 49-member contingent in Turin</span></figcaption>
         </figure>
     </div>
@@ -1616,16 +1640,85 @@ buildQuiz("mcqQuiz",mcqQuiz,"Critical reflection");
 <script>
 
 (function(){
-  [].slice.call(document.querySelectorAll('.clip')).forEach(function(c){
-    var f=c.querySelector('.clip-face'); if(!f) return;
-    f.addEventListener('click',function(){
-      var id=c.getAttribute('data-id');
-      var fr=document.createElement('iframe');
-      fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';
-      fr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-      fr.setAttribute('allowfullscreen','');
-      fr.setAttribute('title',c.getAttribute('data-title')||'Special Olympics video');
-      f.replaceWith(fr);
+  var cards=[].slice.call(document.querySelectorAll('.clip'));
+  if(!cards.length) return;
+  var apiReady=false, useFallback=false, queue=[];
+
+  var tag=document.createElement('script');
+  tag.src='https://www.youtube.com/iframe_api';
+  tag.async=true;
+  document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady=function(){ apiReady=true; var q=queue; queue=[]; q.forEach(function(f){f()}); };
+  setTimeout(function(){ if(!apiReady) useFallback=true; },3000);
+
+  function mountPlain(card){
+    var face=card.querySelector('.clip-face');
+    var fr=document.createElement('iframe');
+    fr.src='https://www.youtube-nocookie.com/embed/'+card.getAttribute('data-id')+'?autoplay=1&rel=0&modestbranding=1';
+    fr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    fr.setAttribute('allowfullscreen','');
+    fr.setAttribute('title',card.getAttribute('data-title')||'Special Olympics video');
+    fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;display:block';
+    face.replaceWith(fr);
+  }
+
+  function mount(card){
+    var frame=card.querySelector('.clip-frame');
+    var face=card.querySelector('.clip-face');
+    var ui=card.querySelector('.clip-ui');
+    var toggle=card.querySelector('.clip-toggle');
+    var bar=card.querySelector('.clip-bar i');
+
+    var holder=document.createElement('div');
+    holder.className='clip-mount';
+    frame.insertBefore(holder, ui);
+
+    var player=new YT.Player(holder,{
+      videoId:card.getAttribute('data-id'),
+      playerVars:{controls:0,modestbranding:1,rel:0,iv_load_policy:3,playsinline:1,
+                  fs:0,disablekb:1,autoplay:1,enablejsapi:1,showinfo:0,cc_load_policy:0},
+      events:{
+        onReady:function(e){ try{e.target.playVideo()}catch(x){} },
+        onStateChange:function(e){ sync(e.data); }
+      }
+    });
+
+    function sync(st){
+      var playing=(st===1);
+      toggle.innerHTML=playing?'&#10074;&#10074;':'&#9654;';
+      if(playing) toggle.classList.remove('is-paused'); else toggle.classList.add('is-paused');
+    }
+    function flip(){
+      var st=-1;
+      try{ st=player.getPlayerState(); }catch(x){}
+      if(st===1){ try{player.pauseVideo()}catch(x){} } else { try{player.playVideo()}catch(x){} }
+    }
+
+    face.style.display='none';
+    ui.hidden=false;
+    toggle.addEventListener('click',function(e){ e.stopPropagation(); flip(); });
+    ui.addEventListener('click',function(e){ if(e.target===toggle) return; flip(); });
+    card.querySelector('.clip-bar').addEventListener('click',function(e){
+      e.stopPropagation();
+      var r=e.currentTarget.getBoundingClientRect();
+      try{ player.seekTo(((e.clientX-r.left)/r.width)*(player.getDuration()||0), true); }catch(x){}
+    });
+
+    setInterval(function(){
+      try{
+        var d=player.getDuration()||0, t=player.getCurrentTime()||0;
+        if(d>0) bar.style.width=(t/d*100)+'%';
+      }catch(x){}
+    },250);
+  }
+
+  cards.forEach(function(card){
+    var face=card.querySelector('.clip-face');
+    if(!face) return;
+    face.addEventListener('click',function(){
+      if(apiReady) mount(card);
+      else if(useFallback) mountPlain(card);
+      else queue.push(function(){ mount(card); });
     });
   });
 })();
