@@ -21,7 +21,7 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 
 ## Features
 
-- **Interactive stanza reader** — each stanza's artwork as a full-page backdrop, glossary pop-ups, keyboard and touch navigation
+- **Interactive stanza reader** — 8 illustrated plates, glossary pop-ups, keyboard and touch navigation
 - **Three quizzes** — matching game, gist quiz, MCQ set, each with explanations and a score
 - **Night mode** — toggle for dark classrooms
 - **Responsive** — works on phones, tablets and projectors
