@@ -411,6 +411,31 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .eq-card.shown .verdict{display:block;margin-top:12px;font-size:15px;line-height:1.5;color:var(--ink)}
 .eq-card.shown .verdict b{color:var(--gold)}
 
+
+/* ---------- empathy cards: larger, bolder, with choices ---------- */
+.empathy-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.eq-card{padding:30px 28px;border-radius:18px;gap:18px}
+.eq-card .who{font-size:11.5px;letter-spacing:.16em;color:var(--ink-2)}
+.eq-card blockquote{font-family:var(--f-serif);font-style:normal;font-weight:700;font-size:21px;
+  line-height:1.45;color:var(--ink)}
+.eq-opts{display:flex;gap:8px;flex-wrap:wrap}
+.eq-opt{font-family:var(--f-mono);font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:12px 18px;border-radius:9px;border:1.5px solid var(--line);background:var(--card-2);color:var(--ink);
+  cursor:pointer;transition:all .15s ease}
+.eq-opt:hover{border-color:var(--ink);background:var(--gold-soft)}
+.eq-opt.locked{cursor:default;pointer-events:none;opacity:.45}
+.eq-opt.is-ans{opacity:1;border-color:var(--sage);background:var(--sage-soft);color:var(--sage)}
+.eq-opt.is-pick{opacity:1;border-color:var(--clay);background:var(--clay-soft);color:var(--clay)}
+.eq-card .verdict{display:none}
+.eq-card.right .verdict,.eq-card.wrong .verdict{display:block;font-size:16px;line-height:1.5;color:var(--ink)}
+.eq-card .verdict b{color:var(--gold)}
+.eq-card .eq-reveal{display:none}
+@media (max-width:880px){
+  .empathy-grid{grid-template-columns:1fr}
+  .eq-card{padding:24px 20px}
+  .eq-card blockquote{font-size:19px}
+}
+
 </style>
 </head>
 
@@ -672,19 +697,19 @@ footer .madeby b{color:var(--gold);font-weight:600}
         <div class="eq-card" data-ans="Sympathy" data-why="You feel sorry for them &mdash; but from a distance.">
           <span class="who">Voice A</span>
           <blockquote>&ldquo;I am so sorry for what is happening to you. It is sad &mdash; do you want something to eat?&rdquo;</blockquote>
-          <button class="eq-reveal" type="button">Which word?</button>
+          <div class="eq-opts"><button class="eq-opt" type="button">Empathy</button><button class="eq-opt" type="button">Sympathy</button><button class="eq-opt" type="button">Compassion</button></div>
           <span class="verdict"></span>
         </div>
         <div class="eq-card" data-ans="Empathy" data-why="You feel it <i>with</i> them.">
           <span class="who">Voice B</span>
           <blockquote>&ldquo;I can imagine how you feel. I understand why you are feeling terribly low.&rdquo;</blockquote>
-          <button class="eq-reveal" type="button">Which word?</button>
+          <div class="eq-opts"><button class="eq-opt" type="button">Empathy</button><button class="eq-opt" type="button">Sympathy</button><button class="eq-opt" type="button">Compassion</button></div>
           <span class="verdict"></span>
         </div>
         <div class="eq-card" data-ans="Compassion" data-why="You feel it with them &mdash; and you act.">
           <span class="who">Voice C</span>
           <blockquote>&ldquo;I understand why you are upset. I will spend some time with you, so that you don&rsquo;t feel lonely.&rdquo;</blockquote>
-          <button class="eq-reveal" type="button">Which word?</button>
+          <div class="eq-opts"><button class="eq-opt" type="button">Empathy</button><button class="eq-opt" type="button">Sympathy</button><button class="eq-opt" type="button">Compassion</button></div>
           <span class="verdict"></span>
         </div>
       </div>
@@ -1195,15 +1220,24 @@ $$(".tab").forEach(function(b){
   });
 });
 
-/* ---------- empathy: one tap reveals the word ---------- */
+/* ---------- empathy: pick a word for each voice ---------- */
 var eqGrid=$("#empathyGrid");
 if(eqGrid){
   $$(".eq-card",eqGrid).forEach(function(card){
-    var b=$(".eq-reveal",card); if(!b) return;
-    b.addEventListener("click",function(){
-      card.classList.add("shown");
-      var v=$(".verdict",card);
-      v.innerHTML="<b>"+card.getAttribute("data-ans")+"</b> &mdash; "+card.getAttribute("data-why");
+    var ans=card.getAttribute("data-ans"), why=card.getAttribute("data-why");
+    $$(".eq-opt",card).forEach(function(opt){
+      opt.addEventListener("click",function(){
+        if(card.classList.contains("done")) return;
+        card.classList.add("done");
+        var ok=(opt.textContent.trim()===ans);
+        card.classList.add(ok?"right":"wrong");
+        $$(".eq-opt",card).forEach(function(o){
+          o.classList.add("locked");
+          if(o.textContent.trim()===ans) o.classList.add("is-ans");
+          else if(o===opt) o.classList.add("is-pick");
+        });
+        $(".verdict",card).innerHTML="<b>"+ans+"</b> &mdash; "+why;
+      });
     });
   });
 }
