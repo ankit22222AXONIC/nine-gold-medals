@@ -11,7 +11,7 @@ fonts fall back gracefully offline, and every illustration is embedded in the fi
 | Section | What it does |
 |---|---|
 | Hero | Plan-view running track with nine athletes, chapter facts |
-| Warm-up | Olympics / Paralympics / Special Olympics explainer with the official symbols, plus an empathy–sympathy–compassion game |
+| Warm-up | The three games side by side with their official symbols, plus a one-tap empathy–sympathy–compassion exercise |
 | The Poem | All 8 stanzas, each with its own illustration plate — navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
 | Gallery | Chapter title card, full-scene illustrations and the original textbook artwork |
 | Poetic devices | Alliteration, imagery, symbolism, tone, mood and message with examples from the poem |

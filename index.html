@@ -123,16 +123,11 @@ svg.rings .bk{stroke:#232f3b}
 .eq-card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px}
 .eq-card .who{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
 .eq-card blockquote{font-family:var(--f-serif);font-style:italic;font-size:17.5px;line-height:1.5;flex:1}
-.eq-opts{display:flex;gap:6px;flex-wrap:wrap}
-.eq-opt{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;padding:8px 12px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--ink-2);transition:all .12s ease}
-.eq-opt:hover{color:var(--ink);border-color:var(--ink-2)}
-.eq-opt.sel{background:var(--gold-soft);border-color:var(--gold);color:var(--gold);font-weight:600}
+
 .eq-card .verdict{font-family:var(--f-mono);font-size:11.5px;display:none}
 .eq-card.right .verdict{display:block;color:var(--sage)}
 .eq-card.wrong .verdict{display:block;color:var(--clay)}
-.eq-card.locked .eq-opt{pointer-events:none;opacity:.55}
-.eq-card.locked .eq-opt.sel{opacity:1}
-.quiz-actions{display:flex;gap:12px;margin-top:20px;align-items:center;flex-wrap:wrap}
+
 .check-note{font-family:var(--f-mono);font-size:12px;color:var(--ink-2)}
 
 /* ---------- poem deck ---------- */
@@ -312,7 +307,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .clip-meta span{font-family:var(--f-mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .clip-note{margin-top:18px;font-size:13.5px;color:var(--ink-2);line-height:1.6}
 
-
 /* ---------- hero as a full-screen backdrop ---------- */
 .hero{position:relative;display:flex;align-items:center;min-height:100vh;padding:96px 0;overflow:hidden;background:#0b0e13}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;
@@ -335,7 +329,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .hero-art{display:none}
 @media (max-width:880px){.hero{min-height:auto;padding:64px 0 54px}.hero .hero-grid>div{max-width:100%}}
 
-
 /* ---------- text that loads as you scroll ---------- */
 .txt-rv .tw{display:inline-block;opacity:0;transform:translateY(12px);
   transition:opacity .46s ease,transform .52s cubic-bezier(.2,.7,.3,1)}
@@ -343,7 +336,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
 @media (prefers-reduced-motion:reduce){
   .txt-rv .tw{opacity:1!important;transform:none!important;transition:none!important}
 }
-
 
 /* ---------- each stanza's artwork fills the page behind it ---------- */
 #poem .stage{position:relative;background:#0b0e13;overflow:hidden;
@@ -379,11 +371,9 @@ footer .madeby b{color:var(--gold);font-weight:600}
   #poem .verse{padding:0 20px}
 }
 
-
 /* ---------- hero background video ---------- */
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;
   z-index:0;filter:brightness(.8) saturate(.96);display:block;border:0;pointer-events:none}
-
 
 /* ---------- clips: video only, our own controls ---------- */
 .clip-frame{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
@@ -398,6 +388,28 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .clip-frame:hover .clip-toggle,.clip-toggle.is-paused{opacity:1}
 .clip-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.22)}
 .clip-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9962e,#f6cf5e)}
+
+/* ---------- the three games, side by side ---------- */
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:20px}
+.game-card{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);
+  overflow:hidden;display:flex;flex-direction:column}
+.game-art{display:grid;place-items:center;gap:12px;padding:26px 20px;min-height:172px;
+  background:var(--card-2);border-bottom:1px solid var(--line-soft)}
+.game-art svg{max-width:148px;max-height:116px;height:auto;width:auto;display:block}
+.game-art .sym-cap{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:center}
+.game-body{padding:18px 20px 20px;flex:1}
+.game-body h3{font-size:21px;font-style:italic;margin:5px 0 9px}
+.game-body p{font-size:15px;line-height:1.6;color:var(--ink);margin:0}
+
+/* ---------- empathy: one reveal per voice ---------- */
+.eq-reveal{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--card-2);color:var(--ink-2);
+  cursor:pointer;transition:all .15s ease}
+.eq-reveal:hover{color:var(--ink);border-color:var(--ink-2)}
+.eq-card.shown .eq-reveal{display:none}
+.eq-card .verdict{display:none}
+.eq-card.shown .verdict{display:block;margin-top:12px;font-size:15px;line-height:1.5;color:var(--ink)}
+.eq-card.shown .verdict b{color:var(--gold)}
 
 </style>
 </head>
@@ -601,17 +613,11 @@ footer .madeby b{color:var(--gold);font-weight:600}
     <div class="sec-head rv">
       <p class="kicker">Before the gun goes off</p>
       <h2>Which games are these?</h2>
-      <p>The poem unfolds at a <em>Special Olympics</em> meet. Before you read, get the three great games straight &mdash; the exercise your textbook calls <em>Reflect and Respond</em>.</p>
+      <p>The poem unfolds at a <em>Special Olympics</em> meet. Here are the three great games, side by side.</p>
     </div>
-    <div class="rv">
-      <div class="tabs" role="tablist">
-        <button class="tab on" data-tab="t-oly">The Olympics</button>
-        <button class="tab" data-tab="t-para">The Paralympics</button>
-        <button class="tab" data-tab="t-spec">The Special Olympics</button>
-      </div>
-      <div class="panel on" id="t-oly">
-        <div class="panel-art">
-          <svg class="rings" viewBox="0 0 342 158" role="img" aria-label="The five interlocking Olympic rings">
+    <div class="games rv">
+      <div class="game-card">
+        <div class="game-art"><svg class="rings" viewBox="0 0 342 158" role="img" aria-label="The five interlocking Olympic rings">
             <g stroke-width="9.5" fill="none">
               <circle cx="54" cy="54" r="49.25" stroke="#0078D0"/>
               <circle cx="171" cy="54" r="49.25" class="bk"/>
@@ -623,43 +629,35 @@ footer .madeby b{color:var(--gold);font-weight:600}
               <path d="M288,103.25A49.25,49.25 0 0 1 258.45,93.4" stroke="#F0282D"/>
             </g>
           </svg>
-          <span class="sym-cap">Official symbol</span>
-        </div>
-        <div class="panel-body">
-          <span class="mono-tag">The oldest games &middot; since 776 BC</span>
+          <span class="sym-cap">Official symbol</span></div>
+        <div class="game-body">
+          <span class="mono-tag">Since 776 BC</span>
           <h3>The Olympics</h3>
-          <p>Born at Olympia in ancient Greece as a festival of Zeus, the modern Games gather athletes of every nation every four years, summer and winter. The five rings stand for the five continents meeting in friendship.</p>
-          <div class="foot">Motto: <i>Citius, Altius, Fortius, Communiter</i> &mdash; Faster, Higher, Stronger, <i>Together</i>.</div>
+          <p>Born at Olympia in ancient Greece. Every nation, every four years, summer and winter &mdash; the five rings stand for the five continents in friendship.</p>
         </div>
       </div>
-      <div class="panel" id="t-para">
-        <div class="panel-art">
-          <svg viewBox="0 0 339 250" role="img" aria-label="The three Agitos of the Paralympic Movement in red, green and blue">
+      <div class="game-card">
+        <div class="game-art"><svg viewBox="0 0 339 250" role="img" aria-label="The three Agitos of the Paralympic Movement in red, green and blue">
             <path fill="#EE334E" d="M152.6 2c-24.4-5.6-57.7.6-89.1 18.7C14.2 49.1-11.8 96.1 5.2 125.6c10.9 18.9 36.8 26 66.9 21.4-13.8-3.2-24.7-10.1-30.8-20.7-17-29.5 9-76.5 58.2-104.9C117.2 11.1 135.6 4.7 152.6 2"/>
             <path fill="#00A651" d="M153 118.5c7.3 23.9 29.3 49.7 60.8 67.8 49.2 28.4 102.9 27.5 120-2 10.9-18.9 4.2-44.9-14.9-68.6 4.1 13.5 3.6 26.4-2.5 37.1-17 29.5-70.8 30.4-120 2-17.8-10.2-32.6-22.9-43.4-36.3"/>
             <path fill="#0081C8" d="M119.7 60.5c-17.1 18.3-28.3 50.2-28.3 86.6 0 56.8 27.6 102.9 61.7 102.9 21.8 0 40.9-18.8 51.9-47.2-9.6 10.3-21.1 16.3-33.4 16.3-34.1 0-61.7-46.1-61.7-102.9-.1-20.5 3.5-39.6 9.8-55.7"/>
           </svg>
-          <span class="sym-cap">Official symbol &mdash; the Agitos</span>
-        </div>
-        <div class="panel-body">
+          <span class="sym-cap">Official symbol &mdash; the Agitos</span></div>
+        <div class="game-body">
           <span class="mono-tag">Agitos &mdash; &ldquo;I move&rdquo;</span>
           <h3>The Paralympics</h3>
-          <p>A parallel stage for athletes with physical, visual and other disabilities, held alongside the Olympic Games. Its symbol, the three Agitos, comes from the Latin for &ldquo;I move&rdquo;.</p>
-          <div class="foot">Para athletes compete in classifications so that ability, not disability, decides the medal.</div>
+          <p>Held alongside the Olympics, for athletes with physical and visual disabilities. Competitors are grouped by ability, not disability.</p>
         </div>
       </div>
-      <div class="panel" id="t-spec">
-        <div class="panel-art">
-          <svg viewBox="0 0 610 610" role="img" aria-label="The Special Olympics emblem: figures joined in a circle">
+      <div class="game-card">
+        <div class="game-art"><svg viewBox="0 0 610 610" role="img" aria-label="The Special Olympics emblem: figures joined in a circle">
             <path fill="#e30613" d="m 31.311287,224.5045 c -3.234,-1.3915 -5.8025,-3.839 -7.6945,-6.9685 -4.7685,-8.019 -4.983,-20.7075 0.2805,-33.0165 7.381,-17.1985 22.6105,-27.137 34.0725,-22.2365 11.473,4.917 14.784,22.8305 7.403,39.9905 -7.337,17.182 -22.6105,27.137 -34.0615,22.2365 M 165.55529,41.965 c 11.5555,0 20.9385,-9.3885 20.9385,-20.9825 0,-11.594 -9.3775,-20.9825 -20.9385,-20.9825 -11.561,0 -20.988,9.3885 -20.988,20.9825 0,11.594 9.3775,20.9825 20.988,20.9825 m 2.233,49.0875 c -3.289,26.9665 -5.093,82.3625 -0.495,120.4885 0,0 17.314,-5.0325 17.281,-5.4285 -2.827,-42.229 -2.354,-86.1465 1.353,-122.353 32.6645,11.572 54.6975,21.7305 71.962,30.085 4.18,-4.499 7.678,-9.5205 11.6655,-14.1735 -18.5515,-11.4125 -70.7245,-32.3015 -71.2415,-32.4775 12.1055,-3.3935 53.262,-10.8405 94.2205,-11.6985 0.2145,0 -0.33,-14.1295 0,-14.0965 -37.917,-1.0945 -90.717,10.5765 -95.909,12.034 25.762,-19.239 51.337,-30.6515 73.777,-41.184 -1.804,-1.1055 -9.3885,-7.359 -9.3885,-7.359 -47.9325,19.613 -83.974,49.3295 -84.26,49.577 -6.435,5.962 -5.6485,9.229 -8.9705,36.597 M 54.048287,139.2325 C 91.508787,105.204 130.29479,89.4795 129.71729,90.046 99.769787,118.03 82.098287,141.1575 69.981787,158.4 c 2.0845,2.9535 3.718,6.2315 5.896,9.141 34.952503,-44.4455 36.349503,-46.189 60.544003,-68.948 -0.044,0.5665 -8.217,48.4825 -0.7645,123.1945 0,0 15.8455,-5.9785 15.8785,-5.3405 -2.0185,-40.326 -6.5615,-87.076 3.8005,-138.622 2.695,-14.9435 -2.4805,-16.9565 -53.262,-24.827 -3.322003,3.8005 -5.615503,5.4835 -13.200003,12.672 l 44.033003,8.745 c -51.485503,21.043 -83.121503,55.8635 -83.121503,55.8635 0,0 3.8885,9.3005 4.2625,8.9485 M 440.42329,41.965 c 11.5995,0 20.988,-9.3885 20.988,-20.9825 0,-11.594 -9.3885,-20.9825 -20.988,-20.9825 -11.5995,0 -20.977,9.3885 -20.977,20.9825 0,11.594 9.3995,20.9825 20.977,20.9825 m -126.995,13.519 c 40.9695,0.869 82.071,8.338 94.1985,11.6985 -0.506,0.154 -52.69,21.0815 -71.2415,32.4775 3.9875,4.653 7.4745,9.691 11.6765,14.1735 17.2645,-8.3545 39.314,-18.513 71.995,-30.096 3.674,36.201 4.136,80.1515 1.331,122.364 -0.033,0.396 17.2535,5.4285 17.2535,5.4285 4.642,-38.126 2.838,-93.522 -0.451,-120.4885 -3.3275,-27.3735 -2.5465,-30.646 -8.9925,-36.5805 -0.2805,-0.264 -36.311,-29.9805 -84.271,-49.61 0,0 -7.5185,6.2755 -9.3775,7.4085 22.473,10.5215 48.026,21.8955 73.799,41.151 -5.1755,-1.4575 -58.0085,-13.1395 -95.9145,-12.0065 0.341,-0.044 -0.2255,14.0745 0,14.0745 m 137.1865,22.3355 c 10.3785,51.557 5.852,98.2795 3.8115,138.6055 0.033,-0.627 15.8895,5.335 15.8895,5.335 7.447,-74.6955 -0.7315,-122.6115 -0.7975,-123.178 24.222,22.7755 25.586,24.5025 60.577,68.959 2.1505,-2.9205 3.762,-6.182 5.896,-9.1685 -12.1165,-17.215 -29.821,-40.3645 -59.7685,-68.3485 -0.5885,-0.5555 38.2415,15.1635 75.67999,49.1975 0.385,0.363 4.2735,-8.9375 4.2735,-8.9375 0,0 -31.67999,-34.8315 -83.08849,-55.8635 l 44,-8.7615 c -7.6285,-7.172 -9.9055,-8.888 -13.211,-12.6885 -50.787,7.887 -55.979,9.8945 -53.262,24.8435 m -436.529503,157.96 c -6.4679999,-25.6355 3.8445,-60.3295 3.652,-59.6475 -13.3429999,45.0945 -27.2524999,86.2455 -8.9704999,188.5345 -3.8995,-24.013 -2.0735,-76.373 0.7535,-93.7915 1.9469999,-11.946 7.6504999,-22.7755 4.5649999,-35.101 m 91.822503,7.788 c -23.287003,5.544 -53.669003,12.1495 -77.742503,13.2715 -6.864,0.3355 -8.316,8.1345 -9.086,11.0165 -20.3004999,73.7935 3.3,174.922 61.468,236.39 0,0 0.792,-1.2485 0.7095,-1.3695 -39.3195,-53.1685 -50.908,-95.777 -57.0735,-175.9615 0.033,0.561 13.178,53.526 46.1285,99.924 -0.374,-0.5335 6.941,-13.508 8.0685,-14.938 -20.4875,-33.242 -37.4275,-71.5385 -46.618,-102.663 6.974,23.562 54.3895,58.135 71.813503,66.715 l 2.783,-27.4395 c -1.815,-0.9955 -49.186503,-25.872 -73.260003,-66.9515 0.44,-0.044 61.039,-8.1455 75.289503,-14.333 -1.1055,-7.0455 -1.914,-23.7765 -2.4695,-23.661 m 476.55849,13.2715 c -24.0295,-1.6885 -56.73799,-7.7275 -79.98649,-13.2715 -0.572,-0.1155 -1.375,16.6045 -2.4695,23.661 14.245,6.182 74.83299,14.289 75.27299,14.333 -24.0515,41.0795 -71.46699,65.9615 -73.22149,66.9515 l 2.75,27.4395 c 17.457,-8.5855 64.82849,-43.1585 71.79149,-66.715 -9.196,31.1245 -26.147,69.421 -46.62349,102.663 1.1715,1.43 8.4865,14.4045 8.0685,14.938 32.93399,-46.3925 46.12849,-99.363 46.15049,-99.924 -6.1325,80.1845 -17.743,122.793 -57.12849,175.9615 -0.066,0.121 0.7645,1.3695 0.7645,1.3695 58.16799,-61.468 81.77949,-162.5965 61.47899,-236.39 -0.7975,-2.882 -2.222,-10.681 -6.842,-11.0165 m -40.27099,-58.41 c 5.6815,17.8145 19.89349,29.161 31.76249,25.3605 3.3385,-1.0505 6.1545,-3.212 8.349,-6.182 5.511,-7.48 6.292,-19.932 2.8875,-32.901 -5.7035,-21.4445 -19.9265,-31.5755 -31.8065,-27.7915 -11.84699,3.784 -16.85199,23.7215 -11.19249,41.514 m 47.85549,-22.2915 c -0.2255,-0.682 10.076,34.0175 3.652,59.6475 -3.124,12.309 2.6345,23.1385 4.543,35.0845 5.995,37.8675 4.675,69.7565 0.7755,93.808 18.282,-102.2725 4.3285,-143.44 -8.9705,-188.5345 m -241.76349,113.74 c 0,-25.333 -20.559,-45.8865 -45.903,-45.8865 -25.344,0 -45.925,20.5535 -45.925,45.8865 0,25.333 20.548,45.8865 45.925,45.8865 25.377,0 45.903,-20.5315 45.903,-45.8865 m 141.218,64.724 c -56.6115,27.181 -98.3895,32.879 -126.951,37.862 48.917,-38.533 71.005,-65.945 91.234,-93.0215 -3.718,-3.0415 -5.3845,-4.499 -17.501,-17.9135 -10.494,14.377 -38.3185,52.4975 -98.978,96.789 -11.6325,8.4755 -15.114,11.33 -18.447,19.36 -1.397,3.344 -1.342,10.164 -1.309,15.1085 0.1375,22.726 -3.5365,196.3335 -3.63,197.296 5.7695,-0.033 24.288,-0.9625 24.332,-1.4905 7.1775,-77.297 8.712,-107.6185 8.833,-142.373 0,-12.573 0.5775,-22.759 0.5775,-23.8645 40.216,20.5425 67.485,31.372 100.947,43.131 1.9635,-2.4695 14.696,-22.605 15.213,-22.374 -31.746,-14.564 -64.196,-26.6915 -95.337,-42.24 47.091,-9.0475 81.8125,-16.995 123.75,-38.874 0.6875,-0.3795 -3.4925,-27.0105 -2.728,-27.3845 m -198.6765,58.179 c 0.033,-4.9445 0.055,-11.7645 -1.32,-15.1085 -3.3275,-8.063 -6.798,-10.857 -18.447,-19.36 -60.6375,-44.2585 -88.462,-82.412 -98.967,-96.789 -12.1165,13.431 -13.794,14.8885 -17.5175,17.9135 20.262,27.1095 42.3115,54.4885 91.278,93.0545 -28.5835,-5.0105 -70.3835,-10.7085 -126.962,-37.895 0.7645,0.3465 -3.4375,27.005 -2.761,27.3845 41.9155,21.912 76.6755,29.832 123.75,38.9125 -31.097,15.51 -63.591,27.6705 -95.315,42.1685 0.517,-0.198 13.233,19.965 15.18,22.385 33.484,-11.737 60.7585,-22.5665 100.9745,-43.0815 0,1.1055 0.6105,11.264 0.6105,23.837 0.088,34.727 1.5895,65.076 8.778,142.373 0.033,0.5335 18.5735,1.43 24.343,1.463 -0.088,-0.9295 -3.762,-174.537 -3.619,-197.263 m -64.13,173.5195 c 3.3715,0 8.349,0.5775 8.349,-4.2515 0,-3.729 -3.0525,-4.158 -5.984,-4.158 h -6.82 v 8.4095 h 4.455 m 11.495,-4.1965 c 0,4.6585 -3.267,6.4075 -7.4745,6.4955 l 7.2105,11.0275 h -3.5145 l -6.809,-11.0275 h -5.3625 v 11.0275 h -2.9095 v -23.8315 h 10.4225 c 6.314,0 8.4425,2.3815 8.4425,6.3085 m -10.912,24.1285 c 10.3675,0 17.897,-8.0905 17.897,-18.535 0,-10.3675 -7.5295,-18.4855 -17.897,-18.4855 -10.439,0 -18.0125,8.1235 -18.0125,18.4855 0,10.4445 7.5735,18.535 18.0125,18.535 m 0,-39.842 c 11.7865,0 21.2575,9.57 21.2575,21.307 0,11.814 -9.4765,21.3895 -21.2575,21.3895 -11.781,0 -21.4225,-9.57 -21.4225,-21.3895 0,-11.737 9.581,-21.307 21.4225,-21.307"/>
           </svg>
-          <span class="sym-cap">Official emblem</span>
-        </div>
-        <div class="panel-body">
+          <span class="sym-cap">Official emblem</span></div>
+        <div class="game-body">
           <span class="mono-tag">The stage of this poem</span>
           <h3>The Special Olympics</h3>
-          <p>Year-round sports training and athletic competition for children and adults with intellectual disabilities. It strives to create a better world by fostering the acceptance and inclusion of all people.</p>
-          <div class="foot">Here, the race in stanza 7 runs under a banner that says exactly that.</div>
+          <p>Year-round training and competition for people with intellectual disabilities &mdash; sport that builds acceptance and inclusion.</p>
         </div>
       </div>
     </div>
@@ -668,38 +666,29 @@ footer .madeby b{color:var(--gold);font-weight:600}
       <div class="sec-head" style="margin-bottom:24px">
         <p class="kicker">Reflect & respond</p>
         <h2 style="font-size:clamp(24px,3vw,32px)">Empathy, sympathy, compassion &mdash; can you tell them apart?</h2>
-        <p>Each voice below means well. Tap the word each sentence shows, then check yourself.</p>
+        <p>Each voice below means well. Tap to see which word each one shows.</p>
       </div>
       <div class="empathy-grid" id="empathyGrid">
-        <div class="eq-card" data-ans="Sympathy">
+        <div class="eq-card" data-ans="Sympathy" data-why="You feel sorry for them &mdash; but from a distance.">
           <span class="who">Voice A</span>
           <blockquote>&ldquo;I am so sorry for what is happening to you. It is sad &mdash; do you want something to eat?&rdquo;</blockquote>
-          <div class="eq-opts">
-            <button class="eq-opt">Empathy</button><button class="eq-opt">Sympathy</button><button class="eq-opt">Compassion</button>
-          </div>
+          <button class="eq-reveal" type="button">Which word?</button>
           <span class="verdict"></span>
         </div>
-        <div class="eq-card" data-ans="Empathy">
+        <div class="eq-card" data-ans="Empathy" data-why="You feel it <i>with</i> them.">
           <span class="who">Voice B</span>
           <blockquote>&ldquo;I can imagine how you feel. I understand why you are feeling terribly low.&rdquo;</blockquote>
-          <div class="eq-opts">
-            <button class="eq-opt">Empathy</button><button class="eq-opt">Sympathy</button><button class="eq-opt">Compassion</button>
-          </div>
+          <button class="eq-reveal" type="button">Which word?</button>
           <span class="verdict"></span>
         </div>
-        <div class="eq-card" data-ans="Compassion">
+        <div class="eq-card" data-ans="Compassion" data-why="You feel it with them &mdash; and you act.">
           <span class="who">Voice C</span>
           <blockquote>&ldquo;I understand why you are upset. I will spend some time with you, so that you don&rsquo;t feel lonely.&rdquo;</blockquote>
-          <div class="eq-opts">
-            <button class="eq-opt">Empathy</button><button class="eq-opt">Sympathy</button><button class="eq-opt">Compassion</button>
-          </div>
+          <button class="eq-reveal" type="button">Which word?</button>
           <span class="verdict"></span>
         </div>
       </div>
-      <div class="quiz-actions">
-        <button class="btn" id="eqCheck">Check answers</button>
-        <span class="check-note" id="eqNote">Pick a word for each voice first.</span>
-      </div>
+    
     </div>
   </div>
 </section>
@@ -1136,7 +1125,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
   </div>
 </section>
 
-
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
 <!-- ================= POET ================= -->
@@ -1207,36 +1195,16 @@ $$(".tab").forEach(function(b){
   });
 });
 
-/* ---------- empathy game ---------- */
+/* ---------- empathy: one tap reveals the word ---------- */
 var eqGrid=$("#empathyGrid");
 if(eqGrid){
   $$(".eq-card",eqGrid).forEach(function(card){
-    $$(".eq-opt",card).forEach(function(opt){
-      opt.addEventListener("click",function(){
-        $$(".eq-opt",card).forEach(function(x){x.classList.remove("sel")});
-        opt.classList.add("sel");
-      });
-    });
-  });
-  $("#eqCheck").addEventListener("click",function(){
-    var n=0,all=true;
-    $$(".eq-card",eqGrid).forEach(function(card){
-      var sel=$(".eq-opt.sel",card);
-      if(!sel){all=false;return}
-      card.classList.add("locked");
-      var ans=card.getAttribute("data-ans");
+    var b=$(".eq-reveal",card); if(!b) return;
+    b.addEventListener("click",function(){
+      card.classList.add("shown");
       var v=$(".verdict",card);
-      if(sel.textContent.trim()===ans){
-        card.classList.add("right");v.textContent="Correct — this is "+ans.toLowerCase()+".";
-      }else{
-        card.classList.add("wrong");v.textContent="Not quite — this is "+ans.toLowerCase()+".";
-        n++;
-      }
+      v.innerHTML="<b>"+card.getAttribute("data-ans")+"</b> &mdash; "+card.getAttribute("data-why");
     });
-    var note=$("#eqNote");
-    if(!all){note.textContent="Choose a word for every voice first.";return}
-    if(n===0){note.textContent="Perfect score — you can read hearts, not just words."}
-    else{note.textContent="Review the "+n+" marked card"+(n>1?"s":"")+", then read the poem — stanza 6 is empathy in action."}
   });
 }
 
