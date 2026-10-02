@@ -229,16 +229,7 @@ svg.rings .bk{stroke:#232f3b}
 .result p{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;letter-spacing:.06em}
 
 /* vocab match */
-.match-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px}
-@media (max-width:720px){.match-grid{grid-template-columns:1fr}}
-.mcol{display:grid;gap:10px;align-content:start}
-.mchip{font-family:var(--f-serif);font-size:16.5px;text-align:left;padding:14px 16px;border-radius:11px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);transition:all .13s ease}
-.mchip:hover:not(.done){border-color:var(--ink-2)}
-.mchip.picked{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 1px var(--gold) inset}
-.mchip.done{border-color:var(--sage);background:var(--sage-soft);color:var(--sage);pointer-events:none;font-weight:600}
-.mchip.shake{animation:shake .3s ease;border-color:var(--clay)}
-.match-status{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);margin-top:16px}
-.match-status b{color:var(--gold)}
+@media (max-width:720px){}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
@@ -976,23 +967,11 @@ footer .madeby b{color:var(--gold);font-weight:600}
     <div class="sec-head rv">
       <p class="kicker">Check your understanding</p>
       <h2>The quiz arena</h2>
-      <p>Two challenges from your textbook&rsquo;s exercises &mdash; match the words, then answer like an examiner.</p>
+      <p>A challenge from your textbook&rsquo;s exercises &mdash; answer like an examiner.</p>
     </div>
 
     <!-- vocab match -->
-    <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 16px">01 &middot; Match the word to its meaning</h3>
-    <div class="quiz-card rv" id="matchCard" style="max-width:none">
-      <div class="match-grid">
-        <div class="mcol" id="termCol"></div>
-        <div class="mcol" id="meanCol"></div>
-      </div>
-      <div class="quiz-actions" style="justify-content:space-between">
-        <span class="match-status" id="matchStatus">Tap a word on the left, then its meaning on the right.</span>
-        <button class="navbtn" id="matchReset">Reset</button>
-      </div>
-    </div>
-
-    <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:88px 0 16px">02 &middot; Critical reflection</h3>
+        <h3 class="mono" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 16px">01 &middot; Critical reflection</h3>
     <div class="quiz-card rv" id="mcqQuiz"></div>
   </div>
 </section>
@@ -1189,53 +1168,6 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){hidePop()}
 });
 window.addEventListener("scroll",hidePop,{passive:true});
-
-/* ---------- vocabulary match ---------- */
-var pairs=[
-  ["dashed in the dirt","destroyed"],
-  ["stumbled","to step awkwardly and almost fall"],
-  ["staggered","to walk or move with difficulty"],
-  ["anguish","extreme pain or suffering"],
-  ["asphalt","a hard black substance used to make roads"]
-];
-var meanOrder=[1,3,4,2,0]; /* display order of meanings */
-var termCol=$("#termCol"),meanCol=$("#meanCol"),matchStatus=$("#matchStatus"),pickedTerm=null,matched=0;
-function chip(txt,cls,val,col){
-  var b=document.createElement("button");
-  b.className="mchip"+(cls?" "+cls:"");
-  b.textContent=txt;b.setAttribute("data-v",val);
-  col.appendChild(b);return b;
-}
-function buildMatch(){
-  termCol.innerHTML="";meanCol.innerHTML="";matched=0;pickedTerm=null;
-  pairs.forEach(function(p,i){chip(p[0],"","t"+i,termCol)});
-  meanOrder.forEach(function(mi){chip(pairs[mi][1],"","m"+mi,meanCol)});
-  matchStatus.innerHTML='Tap a word on the left, then its meaning on the right. <b>0</b> of 5 matched.';
-}
-termCol.addEventListener("click",function(e){
-  var b=e.target.closest(".mchip");if(!b||b.classList.contains("done"))return;
-  $$(".mchip",termCol).forEach(function(x){x.classList.remove("picked")});
-  b.classList.add("picked");pickedTerm=b;
-});
-meanCol.addEventListener("click",function(e){
-  var b=e.target.closest(".mchip");if(!b||b.classList.contains("done"))return;
-  if(!pickedTerm){b.classList.add("shake");setTimeout(function(){b.classList.remove("shake")},350);
-    matchStatus.textContent="First tap a word on the left.";return}
-  var tv=pickedTerm.getAttribute("data-v").slice(1),mv=b.getAttribute("data-v").slice(1);
-  if(tv===mv){
-    pickedTerm.classList.remove("picked");pickedTerm.classList.add("done");
-    b.classList.add("done");pickedTerm=null;matched++;
-    matchStatus.innerHTML=(matched===5
-      ?"All five matched — flawless run. You know these words cold."
-      :'Nicely paired. <b>'+matched+'</b> of 5 matched.');
-  }else{
-    b.classList.add("shake");pickedTerm.classList.add("shake");
-    setTimeout(function(){b.classList.remove("shake");pickedTerm&&pickedTerm.classList.remove("shake")},350);
-    matchStatus.textContent="Not that pair — reread the stanza above for a hint.";
-  }
-});
-$("#matchReset").addEventListener("click",buildMatch);
-buildMatch();
 
 /* ---------- quiz engine ---------- */
 var mcqQuiz=[
