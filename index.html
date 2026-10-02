@@ -351,25 +351,43 @@ footer .madeby b{color:var(--gold);font-weight:600}
 @media (max-width:880px){.gpage-inner{padding:22px 18px 70px}.gpage-body p{font-size:16px}}
 
 
-/* ===== artwork-first layout: verse sits in the empty top band, picture stays visible ===== */
-#poem .stanza.is-active{align-items:flex-start;padding:30px 0 0}
-#poem .verse{display:grid;grid-template-columns:1.08fr .92fr;column-gap:56px;row-gap:10px;
-  align-content:start;align-items:start;width:100%;max-width:1260px;margin:0 auto;padding:0 36px}
-#poem .verse>.lane-chip{grid-column:1;grid-row:1;margin-bottom:0}
-#poem .verse>h3{grid-column:1;grid-row:2;margin:2px 0 6px}
-#poem .verse>.poem{grid-column:1;grid-row:3;margin:0;line-height:1.5}
-#poem .verse>.note{grid-column:2;grid-row:2;margin-top:0;padding:14px 17px;font-size:14.5px;
-  line-height:1.5;max-width:none}
-#poem .verse>.chips{grid-column:2;grid-row:3;margin-top:14px}
-@media (max-width:980px){
-  #poem .verse{grid-template-columns:1fr;row-gap:12px;padding:0 22px}
-  #poem .verse>.lane-chip{grid-column:1;grid-row:1}
-  #poem .verse>h3{grid-column:1;grid-row:2}
-  #poem .verse>.poem{grid-column:1;grid-row:3}
-  #poem .verse>.note{grid-column:1;grid-row:4;margin-top:8px;font-size:15px}
-  #poem .verse>.chips{grid-column:1;grid-row:5;margin-top:12px}
-  #poem .stanza.is-active .plate::after{background:linear-gradient(to bottom,rgba(6,8,12,.93) 0%,
-    rgba(6,8,12,.88) 34%,rgba(6,8,12,.66) 58%,rgba(6,8,12,.32) 80%,rgba(6,8,12,.16) 100%)}
+
+/* ===== per-stanza layouts, chosen by Ankit ===== */
+#poem .stanza.is-active{padding:0}
+
+/* ---- Layout 3 · bottom band — stanzas 1, 5, 6, 7, 8 ---- */
+#poem .stanza[data-i="0"],#poem .stanza[data-i="4"],#poem .stanza[data-i="5"],#poem .stanza[data-i="6"],#poem .stanza[data-i="7"]{align-items:flex-end;padding:0 0 56px}
+#poem .stanza[data-i="0"] .plate,#poem .stanza[data-i="4"] .plate,#poem .stanza[data-i="5"] .plate,#poem .stanza[data-i="6"] .plate,#poem .stanza[data-i="7"] .plate{inset:0}
+#poem .stanza[data-i="0"] .plate::after,#poem .stanza[data-i="4"] .plate::after,#poem .stanza[data-i="5"] .plate::after,#poem .stanza[data-i="6"] .plate::after,#poem .stanza[data-i="7"] .plate::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,
+  rgba(6,8,12,.94) 0%,rgba(6,8,12,.90) 24%,rgba(6,8,12,.78) 38%,rgba(6,8,12,.34) 50%,rgba(6,8,12,0) 62%)}
+#poem .stanza[data-i="0"] .verse,#poem .stanza[data-i="4"] .verse,#poem .stanza[data-i="5"] .verse,#poem .stanza[data-i="6"] .verse,#poem .stanza[data-i="7"] .verse{display:block;width:100%;max-width:1180px;margin:0 auto;padding:0 40px}
+#poem .stanza[data-i="0"] .verse>.note,#poem .stanza[data-i="4"] .verse>.note,#poem .stanza[data-i="5"] .verse>.note,#poem .stanza[data-i="6"] .verse>.note,#poem .stanza[data-i="7"] .verse>.note{margin-top:16px;padding:13px 16px;font-size:14.5px;line-height:1.5;max-width:74ch}
+
+/* ---- Layout 4 · side column — stanzas 2, 3 ---- */
+#poem .stanza[data-i="1"],#poem .stanza[data-i="2"]{align-items:center;padding:0}
+#poem .stanza[data-i="1"] .plate,#poem .stanza[data-i="2"] .plate{inset:0}
+#poem .stanza[data-i="1"] .plate::after,#poem .stanza[data-i="2"] .plate::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to right,
+  rgba(6,8,12,.95) 0%,rgba(6,8,12,.89) 30%,rgba(6,8,12,.28) 52%,rgba(6,8,12,0) 70%)}
+#poem .stanza[data-i="1"] .verse,#poem .stanza[data-i="2"] .verse{display:block;width:46%;max-width:none;margin:0;padding:0 40px 0 64px}
+#poem .stanza[data-i="1"] .verse .poem,#poem .stanza[data-i="2"] .verse .poem{font-size:clamp(16px,1.46vw,21px)}
+
+/* ---- Layout 1 · split panel — stanza 4 ---- */
+#poem .stanza[data-i="3"]{align-items:center;padding:0;background:#0b0e13}
+#poem .stanza[data-i="3"] .plate{inset:0 0 0 42%}
+#poem .stanza[data-i="3"] .plate::after{display:none}
+#poem .stanza[data-i="3"] .verse{display:block;width:42%;max-width:none;margin:0;padding:0 48px}
+#poem .stanza[data-i="3"] .verse .poem{font-size:clamp(16px,1.4vw,20px);line-height:1.55}
+#poem .stanza[data-i="3"] .verse h3{font-size:clamp(21px,1.9vw,26px)}
+
+/* ---- small screens: everything collapses to one stacked column ---- */
+@media (max-width:1100px){
+  #poem .stanza[data-i]{align-items:flex-start;padding:26px 0 0}
+  #poem .stanza[data-i] .plate{inset:0}
+  #poem .stanza[data-i] .plate::after{display:block;background:linear-gradient(to bottom,
+    rgba(6,8,12,.93) 0%,rgba(6,8,12,.88) 40%,rgba(6,8,12,.62) 66%,rgba(6,8,12,.28) 86%,rgba(6,8,12,.16) 100%)}
+  #poem .stanza[data-i] .verse{display:block;width:100%;max-width:none;margin:0;padding:0 22px}
+  #poem .stanza[data-i] .verse .poem{font-size:19px}
+  #poem .stanza[data-i] .verse h3{font-size:24px}
 }
 </style>
 </head>
