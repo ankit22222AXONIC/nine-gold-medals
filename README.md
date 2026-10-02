@@ -12,7 +12,7 @@ connection is needed only for the three Special Olympics clips, which stream fro
 | Section | What it does |
 |---|---|
 | Hero | A looping animated illustration filling the screen, with the title and key facts over it |
-| Warm-up | The Olympics, Paralympics and Special Olympics side by side with their official symbols, plus a choose-the-word empathy–sympathy–compassion exercise |
+| Warm-up | The Olympics, Paralympics and Special Olympics side by side with their official symbols — tap a card for a full page about that Games — plus a choose-the-word empathy–sympathy–compassion exercise |
 | The Poem | All 8 stanzas — each stanza's illustration fills the page behind its text; navigate by arrows, lane buttons, keyboard or swipe; tap dotted words for meanings |
 | Poetic devices | Alliteration, imagery, symbolism, tone, mood and message with examples from the poem |
 | Quiz | Vocabulary matching and critical-reflection MCQs with instant feedback |
@@ -22,6 +22,7 @@ connection is needed only for the three Special Olympics clips, which stream fro
 ## Features
 
 - **Hero video** — the chapter illustration animated, looping behind the title
+- **Games in detail** — each of the three games opens its own full page, with its logo and a plain-language explanation
 - **Interactive stanza reader** — each stanza's artwork as a full-page backdrop, glossary pop-ups, keyboard and touch navigation
 - **Two quizzes** — a vocabulary matching game and an MCQ set, each with explanations and a score
 - **Special Olympics clips** — official World Games videos, embedded from their own channels with the YouTube chrome stripped out

@@ -428,6 +428,31 @@ footer .madeby b{color:var(--gold);font-weight:600}
   .eq-card blockquote{font-size:19px}
 }
 
+
+/* ---------- the three games: cards lead to a detail page ---------- */
+.game-card{cursor:pointer;transition:transform .16s ease,box-shadow .16s ease}
+.game-card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -24px rgba(12,15,20,.55)}
+.game-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.game-more{display:inline-block;margin-top:13px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold)}
+
+.gpage{position:fixed;inset:0;z-index:200;background:var(--paper);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gpage[hidden]{display:none}
+.gpage-inner{max-width:800px;margin:0 auto;padding:34px 28px 90px}
+.gpage-back{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);
+  background:transparent;border:1px solid var(--line);border-radius:8px;padding:10px 16px;cursor:pointer;transition:all .15s ease}
+.gpage-back:hover{color:var(--ink);border-color:var(--ink-2)}
+.gpage-back-end{margin-top:44px}
+.gpage-art{display:grid;place-items:center;margin:34px 0 4px}
+.gpage-art svg{max-width:190px;max-height:150px;height:auto;width:auto;display:block}
+.gpage-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+  text-align:center;margin:14px 0 4px}
+.gpage-inner h2{font-size:clamp(30px,5vw,46px);font-style:italic;font-weight:900;text-align:center;margin:0 0 30px}
+.gpage-body p{font-size:17px;line-height:1.68;margin:0 0 17px;color:var(--ink)}
+.gpage-body b{color:var(--ink);font-weight:700}
+.gpage-body p b{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)}
+@media (max-width:880px){.gpage-inner{padding:22px 18px 70px}.gpage-body p{font-size:16px}}
+
 </style>
 </head>
 
@@ -631,7 +656,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
       <h2>Which games are these?</h2>
     </div>
     <div class="games rv">
-      <div class="game-card">
+      <div class="game-card" data-game="oly">
         <div class="game-art"><svg class="rings" viewBox="0 0 342 158" role="img" aria-label="The five interlocking Olympic rings">
             <g stroke-width="9.5" fill="none">
               <circle cx="54" cy="54" r="49.25" stroke="#0078D0"/>
@@ -649,9 +674,10 @@ footer .madeby b{color:var(--gold);font-weight:600}
           <span class="mono-tag">Since 776 BC</span>
           <h3>The Olympics</h3>
           <p>Born at Olympia in ancient Greece. Every nation, every four years, summer and winter &mdash; the five rings stand for the five continents in friendship.</p>
+        <span class="game-more">Read more &rarr;</span>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card" data-game="para">
         <div class="game-art"><svg viewBox="0 0 339 250" role="img" aria-label="The three Agitos of the Paralympic Movement in red, green and blue">
             <path fill="#EE334E" d="M152.6 2c-24.4-5.6-57.7.6-89.1 18.7C14.2 49.1-11.8 96.1 5.2 125.6c10.9 18.9 36.8 26 66.9 21.4-13.8-3.2-24.7-10.1-30.8-20.7-17-29.5 9-76.5 58.2-104.9C117.2 11.1 135.6 4.7 152.6 2"/>
             <path fill="#00A651" d="M153 118.5c7.3 23.9 29.3 49.7 60.8 67.8 49.2 28.4 102.9 27.5 120-2 10.9-18.9 4.2-44.9-14.9-68.6 4.1 13.5 3.6 26.4-2.5 37.1-17 29.5-70.8 30.4-120 2-17.8-10.2-32.6-22.9-43.4-36.3"/>
@@ -662,9 +688,10 @@ footer .madeby b{color:var(--gold);font-weight:600}
           <span class="mono-tag">Agitos &mdash; &ldquo;I move&rdquo;</span>
           <h3>The Paralympics</h3>
           <p>Held alongside the Olympics, for athletes with physical and visual disabilities. Competitors are grouped by ability, not disability.</p>
+        <span class="game-more">Read more &rarr;</span>
         </div>
       </div>
-      <div class="game-card">
+      <div class="game-card" data-game="spec">
         <div class="game-art"><svg viewBox="0 0 610 610" role="img" aria-label="The Special Olympics emblem: figures joined in a circle">
             <path fill="#e30613" d="m 31.311287,224.5045 c -3.234,-1.3915 -5.8025,-3.839 -7.6945,-6.9685 -4.7685,-8.019 -4.983,-20.7075 0.2805,-33.0165 7.381,-17.1985 22.6105,-27.137 34.0725,-22.2365 11.473,4.917 14.784,22.8305 7.403,39.9905 -7.337,17.182 -22.6105,27.137 -34.0615,22.2365 M 165.55529,41.965 c 11.5555,0 20.9385,-9.3885 20.9385,-20.9825 0,-11.594 -9.3775,-20.9825 -20.9385,-20.9825 -11.561,0 -20.988,9.3885 -20.988,20.9825 0,11.594 9.3775,20.9825 20.988,20.9825 m 2.233,49.0875 c -3.289,26.9665 -5.093,82.3625 -0.495,120.4885 0,0 17.314,-5.0325 17.281,-5.4285 -2.827,-42.229 -2.354,-86.1465 1.353,-122.353 32.6645,11.572 54.6975,21.7305 71.962,30.085 4.18,-4.499 7.678,-9.5205 11.6655,-14.1735 -18.5515,-11.4125 -70.7245,-32.3015 -71.2415,-32.4775 12.1055,-3.3935 53.262,-10.8405 94.2205,-11.6985 0.2145,0 -0.33,-14.1295 0,-14.0965 -37.917,-1.0945 -90.717,10.5765 -95.909,12.034 25.762,-19.239 51.337,-30.6515 73.777,-41.184 -1.804,-1.1055 -9.3885,-7.359 -9.3885,-7.359 -47.9325,19.613 -83.974,49.3295 -84.26,49.577 -6.435,5.962 -5.6485,9.229 -8.9705,36.597 M 54.048287,139.2325 C 91.508787,105.204 130.29479,89.4795 129.71729,90.046 99.769787,118.03 82.098287,141.1575 69.981787,158.4 c 2.0845,2.9535 3.718,6.2315 5.896,9.141 34.952503,-44.4455 36.349503,-46.189 60.544003,-68.948 -0.044,0.5665 -8.217,48.4825 -0.7645,123.1945 0,0 15.8455,-5.9785 15.8785,-5.3405 -2.0185,-40.326 -6.5615,-87.076 3.8005,-138.622 2.695,-14.9435 -2.4805,-16.9565 -53.262,-24.827 -3.322003,3.8005 -5.615503,5.4835 -13.200003,12.672 l 44.033003,8.745 c -51.485503,21.043 -83.121503,55.8635 -83.121503,55.8635 0,0 3.8885,9.3005 4.2625,8.9485 M 440.42329,41.965 c 11.5995,0 20.988,-9.3885 20.988,-20.9825 0,-11.594 -9.3885,-20.9825 -20.988,-20.9825 -11.5995,0 -20.977,9.3885 -20.977,20.9825 0,11.594 9.3995,20.9825 20.977,20.9825 m -126.995,13.519 c 40.9695,0.869 82.071,8.338 94.1985,11.6985 -0.506,0.154 -52.69,21.0815 -71.2415,32.4775 3.9875,4.653 7.4745,9.691 11.6765,14.1735 17.2645,-8.3545 39.314,-18.513 71.995,-30.096 3.674,36.201 4.136,80.1515 1.331,122.364 -0.033,0.396 17.2535,5.4285 17.2535,5.4285 4.642,-38.126 2.838,-93.522 -0.451,-120.4885 -3.3275,-27.3735 -2.5465,-30.646 -8.9925,-36.5805 -0.2805,-0.264 -36.311,-29.9805 -84.271,-49.61 0,0 -7.5185,6.2755 -9.3775,7.4085 22.473,10.5215 48.026,21.8955 73.799,41.151 -5.1755,-1.4575 -58.0085,-13.1395 -95.9145,-12.0065 0.341,-0.044 -0.2255,14.0745 0,14.0745 m 137.1865,22.3355 c 10.3785,51.557 5.852,98.2795 3.8115,138.6055 0.033,-0.627 15.8895,5.335 15.8895,5.335 7.447,-74.6955 -0.7315,-122.6115 -0.7975,-123.178 24.222,22.7755 25.586,24.5025 60.577,68.959 2.1505,-2.9205 3.762,-6.182 5.896,-9.1685 -12.1165,-17.215 -29.821,-40.3645 -59.7685,-68.3485 -0.5885,-0.5555 38.2415,15.1635 75.67999,49.1975 0.385,0.363 4.2735,-8.9375 4.2735,-8.9375 0,0 -31.67999,-34.8315 -83.08849,-55.8635 l 44,-8.7615 c -7.6285,-7.172 -9.9055,-8.888 -13.211,-12.6885 -50.787,7.887 -55.979,9.8945 -53.262,24.8435 m -436.529503,157.96 c -6.4679999,-25.6355 3.8445,-60.3295 3.652,-59.6475 -13.3429999,45.0945 -27.2524999,86.2455 -8.9704999,188.5345 -3.8995,-24.013 -2.0735,-76.373 0.7535,-93.7915 1.9469999,-11.946 7.6504999,-22.7755 4.5649999,-35.101 m 91.822503,7.788 c -23.287003,5.544 -53.669003,12.1495 -77.742503,13.2715 -6.864,0.3355 -8.316,8.1345 -9.086,11.0165 -20.3004999,73.7935 3.3,174.922 61.468,236.39 0,0 0.792,-1.2485 0.7095,-1.3695 -39.3195,-53.1685 -50.908,-95.777 -57.0735,-175.9615 0.033,0.561 13.178,53.526 46.1285,99.924 -0.374,-0.5335 6.941,-13.508 8.0685,-14.938 -20.4875,-33.242 -37.4275,-71.5385 -46.618,-102.663 6.974,23.562 54.3895,58.135 71.813503,66.715 l 2.783,-27.4395 c -1.815,-0.9955 -49.186503,-25.872 -73.260003,-66.9515 0.44,-0.044 61.039,-8.1455 75.289503,-14.333 -1.1055,-7.0455 -1.914,-23.7765 -2.4695,-23.661 m 476.55849,13.2715 c -24.0295,-1.6885 -56.73799,-7.7275 -79.98649,-13.2715 -0.572,-0.1155 -1.375,16.6045 -2.4695,23.661 14.245,6.182 74.83299,14.289 75.27299,14.333 -24.0515,41.0795 -71.46699,65.9615 -73.22149,66.9515 l 2.75,27.4395 c 17.457,-8.5855 64.82849,-43.1585 71.79149,-66.715 -9.196,31.1245 -26.147,69.421 -46.62349,102.663 1.1715,1.43 8.4865,14.4045 8.0685,14.938 32.93399,-46.3925 46.12849,-99.363 46.15049,-99.924 -6.1325,80.1845 -17.743,122.793 -57.12849,175.9615 -0.066,0.121 0.7645,1.3695 0.7645,1.3695 58.16799,-61.468 81.77949,-162.5965 61.47899,-236.39 -0.7975,-2.882 -2.222,-10.681 -6.842,-11.0165 m -40.27099,-58.41 c 5.6815,17.8145 19.89349,29.161 31.76249,25.3605 3.3385,-1.0505 6.1545,-3.212 8.349,-6.182 5.511,-7.48 6.292,-19.932 2.8875,-32.901 -5.7035,-21.4445 -19.9265,-31.5755 -31.8065,-27.7915 -11.84699,3.784 -16.85199,23.7215 -11.19249,41.514 m 47.85549,-22.2915 c -0.2255,-0.682 10.076,34.0175 3.652,59.6475 -3.124,12.309 2.6345,23.1385 4.543,35.0845 5.995,37.8675 4.675,69.7565 0.7755,93.808 18.282,-102.2725 4.3285,-143.44 -8.9705,-188.5345 m -241.76349,113.74 c 0,-25.333 -20.559,-45.8865 -45.903,-45.8865 -25.344,0 -45.925,20.5535 -45.925,45.8865 0,25.333 20.548,45.8865 45.925,45.8865 25.377,0 45.903,-20.5315 45.903,-45.8865 m 141.218,64.724 c -56.6115,27.181 -98.3895,32.879 -126.951,37.862 48.917,-38.533 71.005,-65.945 91.234,-93.0215 -3.718,-3.0415 -5.3845,-4.499 -17.501,-17.9135 -10.494,14.377 -38.3185,52.4975 -98.978,96.789 -11.6325,8.4755 -15.114,11.33 -18.447,19.36 -1.397,3.344 -1.342,10.164 -1.309,15.1085 0.1375,22.726 -3.5365,196.3335 -3.63,197.296 5.7695,-0.033 24.288,-0.9625 24.332,-1.4905 7.1775,-77.297 8.712,-107.6185 8.833,-142.373 0,-12.573 0.5775,-22.759 0.5775,-23.8645 40.216,20.5425 67.485,31.372 100.947,43.131 1.9635,-2.4695 14.696,-22.605 15.213,-22.374 -31.746,-14.564 -64.196,-26.6915 -95.337,-42.24 47.091,-9.0475 81.8125,-16.995 123.75,-38.874 0.6875,-0.3795 -3.4925,-27.0105 -2.728,-27.3845 m -198.6765,58.179 c 0.033,-4.9445 0.055,-11.7645 -1.32,-15.1085 -3.3275,-8.063 -6.798,-10.857 -18.447,-19.36 -60.6375,-44.2585 -88.462,-82.412 -98.967,-96.789 -12.1165,13.431 -13.794,14.8885 -17.5175,17.9135 20.262,27.1095 42.3115,54.4885 91.278,93.0545 -28.5835,-5.0105 -70.3835,-10.7085 -126.962,-37.895 0.7645,0.3465 -3.4375,27.005 -2.761,27.3845 41.9155,21.912 76.6755,29.832 123.75,38.9125 -31.097,15.51 -63.591,27.6705 -95.315,42.1685 0.517,-0.198 13.233,19.965 15.18,22.385 33.484,-11.737 60.7585,-22.5665 100.9745,-43.0815 0,1.1055 0.6105,11.264 0.6105,23.837 0.088,34.727 1.5895,65.076 8.778,142.373 0.033,0.5335 18.5735,1.43 24.343,1.463 -0.088,-0.9295 -3.762,-174.537 -3.619,-197.263 m -64.13,173.5195 c 3.3715,0 8.349,0.5775 8.349,-4.2515 0,-3.729 -3.0525,-4.158 -5.984,-4.158 h -6.82 v 8.4095 h 4.455 m 11.495,-4.1965 c 0,4.6585 -3.267,6.4075 -7.4745,6.4955 l 7.2105,11.0275 h -3.5145 l -6.809,-11.0275 h -5.3625 v 11.0275 h -2.9095 v -23.8315 h 10.4225 c 6.314,0 8.4425,2.3815 8.4425,6.3085 m -10.912,24.1285 c 10.3675,0 17.897,-8.0905 17.897,-18.535 0,-10.3675 -7.5295,-18.4855 -17.897,-18.4855 -10.439,0 -18.0125,8.1235 -18.0125,18.4855 0,10.4445 7.5735,18.535 18.0125,18.535 m 0,-39.842 c 11.7865,0 21.2575,9.57 21.2575,21.307 0,11.814 -9.4765,21.3895 -21.2575,21.3895 -11.781,0 -21.4225,-9.57 -21.4225,-21.3895 0,-11.737 9.581,-21.307 21.4225,-21.307"/>
           </svg>
@@ -673,6 +700,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
           <span class="mono-tag">The stage of this poem</span>
           <h3>The Special Olympics</h3>
           <p>Year-round training and competition for people with intellectual disabilities &mdash; sport that builds acceptance and inclusion.</p>
+        <span class="game-more">Read more &rarr;</span>
         </div>
       </div>
     </div>
@@ -1360,6 +1388,59 @@ buildQuiz("mcqQuiz",mcqQuiz,"Critical reflection");
       else queue.push(function(){ mount(card); });
     });
   });
+})();
+
+</script>
+
+<div class="gpage" id="gpage" hidden>
+  <div class="gpage-inner">
+    <button class="gpage-back" id="gpageBack" type="button">&larr; Back to the three games</button>
+    <div class="gpage-art" id="gpageArt"></div>
+    <p class="gpage-tag" id="gpageTag"></p>
+    <h2 id="gpageTitle"></h2>
+    <div class="gpage-body" id="gpageBody"></div>
+    <button class="gpage-back gpage-back-end" id="gpageBack2" type="button">&larr; Back to the three games</button>
+  </div>
+</div>
+<script>
+
+(function(){
+  var DATA={"oly": {"name": "The Olympics", "tag": "Every four years &middot; summer and winter", "points": [["Where it began", "In ancient Greece, at a place called Olympia, in the year 776 BC. The Games were held to honour Zeus, the king of the Greek gods."], ["How it came back", "After many centuries the ancient Games stopped. In 1896 a French teacher, Pierre de Coubertin, started them again. That is why we call these the modern Olympic Games."], ["How often", "Every four years. There are two kinds &mdash; the Summer Games and the Winter Games &mdash; and they take turns, so somewhere in the world there is an Olympic Games every two years."], ["The five rings", "The five rings stand for the five continents. They are linked together to show that athletes from all over the world meet in friendship."], ["The motto", "Citius, Altius, Fortius &mdash; Communiter. In English: Faster, Higher, Stronger &mdash; Together."], ["The torch", "A flame is lit at Olympia in Greece and carried by runners, hand to hand, all the way to the city hosting the Games. It burns for the whole of the Games."], ["Who takes part", "The finest athletes in each sport, chosen to represent their country. For most of them, the Olympics is the biggest stage there is."]]}, "para": {"name": "The Paralympics", "tag": "Held just after the Olympics &middot; same city, same venues", "points": [["What it is", "The Paralympics are Olympic-style Games for athletes with disabilities &mdash; physical, visual and others."], ["How it started", "In 1948 a doctor in England, Ludwig Guttmann, arranged a small sports competition for soldiers injured in the Second World War. It grew and grew, and in 1960 the first official Paralympic Games were held in Rome."], ["When and where", "In the same year as the Olympics, in the same city, and often in the very same stadiums &mdash; usually a few weeks later."], ["What the name means", "&lsquo;Para&rsquo; comes from a Greek word meaning &lsquo;beside&rsquo; or &lsquo;alongside&rsquo;. The Paralympics run alongside the Olympics."], ["The symbol", "Three curved shapes called the Agitos, in red, green and blue. Agitos is Latin for &lsquo;I move&rsquo;. They stand for athletes moving forward together."], ["How it stays fair", "Athletes are grouped into classes according to their disability and their ability, so that every race is a fair one."], ["The sports", "Most Olympic sports, adapted for the athletes. A few, such as wheelchair rugby and goalball, belong only to the Paralympics."]]}, "spec": {"name": "The Special Olympics", "tag": "The Games in this poem &middot; all year round", "points": [["What it is", "Sports training and competition, all year round, for children and adults with intellectual disabilities. This is the Games in our poem."], ["Who started it", "Eunice Kennedy Shriver, in the United States, in 1968. She believed sport could change the way the world treats people with intellectual disabilities."], ["Not the same as the Paralympics", "This is the difference worth remembering. The Paralympics are for athletes with physical disabilities. The Special Olympics are for athletes with intellectual disabilities. They are separate movements, run by different organisations."], ["The oath", "&lsquo;Let me win. But if I cannot win, let me be brave in the attempt.&rsquo; Every Special Olympics athlete takes this oath."], ["The spirit", "Everyone who takes part is placed and everyone is cheered. The point is not only to win, but to take part, to try, and to be included."], ["In the poem", "In stanza 7 the nine runners walk hand in hand under a banner that reads &lsquo;Special Olympics&rsquo;. The words could not fit the moment better."]]}};
+  var page=document.getElementById('gpage'); if(!page) return;
+  var art=document.getElementById('gpageArt'), tagEl=document.getElementById('gpageTag');
+  var titleEl=document.getElementById('gpageTitle'), bodyEl=document.getElementById('gpageBody');
+  var lastFocus=null;
+
+  function open(key,card){
+    var d=DATA[key]; if(!d) return;
+    art.innerHTML='';
+    var svg=card.querySelector('.game-art svg');
+    if(svg) art.appendChild(svg.cloneNode(true));
+    tagEl.innerHTML=d.tag;
+    titleEl.textContent=d.name;
+    bodyEl.innerHTML=d.points.map(function(p){ return '<p><b>'+p[0]+'</b><br>'+p[1]+'</p>'; }).join('');
+    lastFocus=document.activeElement;
+    page.hidden=false; document.body.style.overflow='hidden'; page.scrollTop=0;
+    document.getElementById('gpageBack').focus();
+  }
+  function close(){
+    page.hidden=true; document.body.style.overflow='';
+    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  }
+
+  [].slice.call(document.querySelectorAll('.game-card')).forEach(function(card){
+    var key=card.getAttribute('data-game'); if(!key) return;
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label','Read more about '+card.querySelector('h3').textContent.trim());
+    card.addEventListener('click',function(){ open(key,card); });
+    card.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(key,card); }
+    });
+  });
+  document.getElementById('gpageBack').addEventListener('click',close);
+  document.getElementById('gpageBack2').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!page.hidden) close(); });
 })();
 
 </script>
