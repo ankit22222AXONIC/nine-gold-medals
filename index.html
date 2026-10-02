@@ -295,72 +295,6 @@ footer .madeby b{color:var(--gold);font-weight:600}
   .rv{opacity:1;transform:none}
 }
 
-/* ---------- the poem, as a film ---------- */
-#film{padding:54px 0 20px}
-.film{margin-top:26px}
-.film-stage{position:relative;aspect-ratio:16/9;width:100%;background:#0b0e13;border-radius:18px;overflow:hidden;
-  box-shadow:0 34px 80px -34px rgba(12,15,20,.8);border:1px solid rgba(255,255,255,.07);isolation:isolate;outline:none}
-.film-stage:fullscreen{border-radius:0;aspect-ratio:auto;width:100vw;height:100vh}
-.film-scenes{position:absolute;inset:0}
-.fscene{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
-.fscene.is-live{opacity:1}
-.fscene-art{position:absolute;inset:0;will-change:transform;transform-origin:center}
-.fscene::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(135deg, rgba(6,8,12,.96) 0%, rgba(6,8,12,.93) 24%, rgba(6,8,12,.8) 40%, rgba(6,8,12,.48) 54%, rgba(6,8,12,.15) 68%, rgba(6,8,12,0) 80%)}
-.fscene-art img,.fscene-art svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.fscene.is-live .fscene-art{animation:kbA 13s linear both}
-.fscene.alt.is-live .fscene-art{animation:kbB 13s linear both}
-@keyframes kbA{from{transform:scale(1.03) translate3d(0,0,0)}to{transform:scale(1.15) translate3d(-1.7%,-1.3%,0)}}
-@keyframes kbB{from{transform:scale(1.15) translate3d(1.5%,1.1%,0)}to{transform:scale(1.03) translate3d(0,0,0)}}
-.fscene.outro .fscene-art{background:
-  radial-gradient(60% 70% at 50% 45%, rgba(201,150,46,.34), transparent 70%),
-  linear-gradient(160deg,#101520,#0a0d12 70%)}
-.film-vig{position:absolute;inset:0;pointer-events:none;background:
-  radial-gradient(125% 95% at 50% 34%, transparent 38%, rgba(8,10,14,.5) 100%),
-  linear-gradient(to top, rgba(6,8,12,.97) 0%, rgba(6,8,12,.9) 20%, rgba(6,8,12,.66) 36%, rgba(6,8,12,.28) 50%, rgba(6,8,12,0) 68%)}
-.film-hud{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
-  padding:16px 20px;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.8);text-shadow:0 1px 14px rgba(0,0,0,.7)}
-.film-kicker{color:#f0c65a;text-shadow:0 2px 14px rgba(0,0,0,.85)}
-.fscene-text{position:absolute;z-index:2;left:18px;bottom:70px;padding:16px 26px 18px;max-width:min(64ch,78%);
-  border-radius:18px;background:rgba(6,8,12,.46);border:1px solid rgba(255,255,255,.08);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.fline{margin:0 0 9px;font-family:var(--f-serif);font-size:clamp(17px,2.15vw,30px);line-height:1.36;color:#fff;font-weight:500;
-  text-shadow:0 2px 20px rgba(0,0,0,.8);opacity:0;transform:translateY(16px);
-  transition:opacity .7s ease,transform .75s cubic-bezier(.2,.7,.3,1)}
-.fline.on{opacity:1;transform:none}
-.fcredit{position:absolute;z-index:2;right:26px;bottom:72px;margin:0;font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(255,255,255,.88);text-shadow:0 2px 14px rgba(0,0,0,.8)}
-.film-cover{position:absolute;inset:0;display:grid;place-items:center;text-align:center;overflow:hidden;
-  transition:opacity .6s ease;z-index:3}
-.film-cover.hide{opacity:0;pointer-events:none}
-.film-cover-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(1px) brightness(.42) saturate(.9);transform:scale(1.04)}
-.film-cover-in{position:relative;padding:24px;display:flex;flex-direction:column;align-items:center;gap:4px}
-.fc-k{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#e8b62c;margin:0}
-.fc-t{font-family:var(--f-display);font-style:italic;font-weight:900;font-size:clamp(30px,5.2vw,64px);color:#fff;margin:6px 0 0;line-height:1.02}
-.fc-b{font-family:var(--f-display);font-style:italic;font-size:clamp(15px,1.7vw,20px);color:rgba(255,255,255,.75);margin:2px 0 18px}
-.fc-play{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#1b1405;
-  background:linear-gradient(180deg,#f6cf5e,#e8b62c);border:0;border-radius:999px;padding:14px 26px;cursor:pointer;font-weight:700;
-  box-shadow:0 12px 30px -10px rgba(232,182,44,.7);transition:transform .15s ease,box-shadow .15s ease}
-.fc-play:hover{transform:translateY(-1px);box-shadow:0 16px 36px -10px rgba(232,182,44,.85)}
-.fc-hint{margin:14px 0 0;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-.film-bar{position:absolute;z-index:3;left:0;right:0;bottom:0;height:58px;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:2;
-  background:linear-gradient(to top, rgba(8,10,14,.96), rgba(8,10,14,0))}
-.fbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.09);
-  color:#fff;cursor:pointer;display:grid;place-items:center;font-size:11px;line-height:1;padding:0;transition:background .15s ease}
-.fbtn:hover{background:rgba(255,255,255,.2)}
-.film-track{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.2);position:relative;cursor:pointer;overflow:hidden}
-.film-track i{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:99px;background:linear-gradient(90deg,#c9962e,#f6cf5e)}
-.film-time{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;color:rgba(255,255,255,.78);white-space:nowrap}
-@media (max-width:880px){
-  .fscene-text{bottom:62px;padding:0 16px;max-width:88%}
-  .fline{font-size:clamp(15px,3.4vw,20px)}
-  .film-bar{height:50px;gap:7px;padding:0 10px}
-  .fbtn{width:30px;height:30px}
-  .fcredit{display:none}
-}
-
-
 /* ---------- special olympics clips ---------- */
 #clips{padding:54px 0 20px}
 .clip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:26px}
@@ -651,64 +585,14 @@ footer .madeby b{color:var(--gold);font-weight:600}
         <span class="stat"><b>0</b> losers</span>
       </div>
       <div class="cta-row">
-        <a class="btn" href="#film">Play the poem
+        <a class="btn" href="#poem">Read the poem
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14M6 12l6 6 6-6"/></svg>
         </a>
-        <a class="btn ghost" href="#poem">Read it stanza by stanza</a>
+        <a class="btn ghost" href="#quiz">Take the quiz</a>
       </div>
     </div>
   </div>
 </section>
-<!-- ================= THE POEM, AS A FILM ================= -->
-<section id="film">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="kicker">The poem, as a film</p>
-      <h2>Press play and let it unfold</h2>
-      <p>Eight scenes, one race. The pictures drift as the poem comes up a line at a time &mdash; watch it straight through, or step scene by scene.</p>
-    </div>
-    <div class="film rv">
-      <div class="film-stage" id="filmStage" tabindex="0" aria-label="Animated presentation of the poem Nine Gold Medals">
-        <div class="film-scenes" id="filmScenes">
-<div class="fscene" data-i="0" data-kicker="Stanza 01 · The gathering"><div class="fscene-art" data-src="0"></div><div class="fscene-text"><p class="fline">The athletes had come from all over the country</p><p class="fline">To run for the gold, for the silver and bronze</p><p class="fline">Many weeks and months of training</p><p class="fline">All coming down to these games.</p></div></div>
-<div class="fscene alt" data-i="1" data-kicker="Stanza 02 · The crowd"><div class="fscene-art" data-src="1"></div><div class="fscene-text"><p class="fline">The spectators gathered around the old field</p><p class="fline">To cheer on all the young women and men</p><p class="fline">The final event of the day was approaching</p><p class="fline">Excitement was high to begin.</p></div></div>
-<div class="fscene" data-i="2" data-kicker="Stanza 03 · The start"><div class="fscene-art" data-src="2"></div><div class="fscene-text"><p class="fline">The blocks were all lined up for those who would use them</p><p class="fline">The hundred-yard dash and the race to be run</p><p class="fline">These were nine resolved athletes in the back of the starting line</p><p class="fline">Poised for the sound of the gun.</p></div></div>
-<div class="fscene alt" data-i="3" data-kicker="Stanza 04 · The turning point"><div class="fscene-art" data-src="3"></div><div class="fscene-text"><p class="fline">The signal was given, the pistol exploded</p><p class="fline">And so did the runners all charging ahead</p><p class="fline">But the smallest among them, he stumbled and staggered</p><p class="fline">And fell to the asphalt instead.</p></div></div>
-<div class="fscene" data-i="4" data-kicker="Stanza 05 · The low point"><div class="fscene-art" data-src="4"></div><div class="fscene-text"><p class="fline">He gave out a cry of frustration and anguish</p><p class="fline">His dreams and his efforts dashed in the dirt</p><p class="fline">But as sure as I’m standing here telling this story</p><p class="fline">The same goes for what next occurred.</p></div></div>
-<div class="fscene alt" data-i="5" data-kicker="Stanza 06 · The reversal"><div class="fscene-art" data-src="5"></div><div class="fscene-text"><p class="fline">The eight other runners pulled up on their heels</p><p class="fline">The ones who had trained for so long to compete</p><p class="fline">One by one they all turned round and went back to help him</p><p class="fline">And brought the young boy to his feet.</p></div></div>
-<div class="fscene" data-i="6" data-kicker="Stanza 07 · The walk"><div class="fscene-art" data-src="6"></div><div class="fscene-text"><p class="fline">Then all the nine runners joined hands and continued</p><p class="fline">The hundred-yard dash now reduced to a walk</p><p class="fline">And a banner above that said (Special Olympics)</p><p class="fline">Could not have been more on the mark.</p></div></div>
-<div class="fscene alt" data-i="7" data-kicker="Stanza 08 · The finish"><div class="fscene-art" data-src="7"></div><div class="fscene-text"><p class="fline">That’s how the race ended, with nine gold medals</p><p class="fline">They came to the finish line holding hands still</p><p class="fline">And a standing ovation and nine beaming faces</p><p class="fline">Said more than these words ever will.</p></div></div>
-<div class="fscene outro" data-i="8" data-kicker="The message"><div class="fscene-art"></div><div class="fscene-text"><p class="fline">Nine gold medals &mdash; and not one of them</p><p class="fline">crossed that line alone.</p></div><p class="fcredit">Made by Ankit &amp; Vaibhav</p></div>
-        </div>
-        <div class="film-vig"></div>
-        <div class="film-hud">
-          <span class="film-kicker" id="filmKicker"></span>
-          <span class="film-count" id="filmCount"></span>
-        </div>
-        <div class="film-cover" id="filmCover">
-          <div class="film-cover-bg" id="filmCoverBg"></div>
-          <div class="film-cover-in">
-            <p class="fc-k">Kaveri &middot; Class IX &middot; Poetry 5</p>
-            <h3 class="fc-t">Nine Gold Medals</h3>
-            <p class="fc-b">a poem by David Roth</p>
-            <button class="fc-play" id="fcPlay" type="button">&#9654;&nbsp; Play the poem</button>
-            <p class="fc-hint">Space to play &middot; arrow keys to move between scenes</p>
-          </div>
-        </div>
-        <div class="film-bar">
-          <button class="fbtn" id="fPlay" type="button" aria-label="Play or pause">&#9654;</button>
-          <button class="fbtn" id="fPrev" type="button" aria-label="Previous scene">&#124;&#9664;</button>
-          <button class="fbtn" id="fNext" type="button" aria-label="Next scene">&#9654;&#124;</button>
-          <div class="film-track" id="filmTrack" role="slider" aria-label="Timeline"><i id="filmFill"></i></div>
-          <span class="film-time" id="filmTime">0:00 / 0:00</span>
-          <button class="fbtn" id="fFull" type="button" aria-label="Full screen">&#9974;</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
 <!-- ================= WARM-UP ================= -->
@@ -1526,116 +1410,6 @@ function buildQuiz(mountId,qs,label){
 }
 buildQuiz("mcqQuiz",mcqQuiz,"Critical reflection");
 })();
-</script>
-<script>
-
-(function(){
-  var stage=document.getElementById('filmStage');
-  var scenes=[].slice.call(document.querySelectorAll('.fscene'));
-  if(!stage||!scenes.length) return;
-  var fill=document.getElementById('filmFill'), timeEl=document.getElementById('filmTime');
-  var kickerEl=document.getElementById('filmKicker'), countEl=document.getElementById('filmCount');
-  var cover=document.getElementById('filmCover'), track=document.getElementById('filmTrack');
-  var bPlay=document.getElementById('fPlay'), bPrev=document.getElementById('fPrev'), bNext=document.getElementById('fNext'), bFull=document.getElementById('fFull');
-
-  // lift the artwork straight out of the stanza plates - keeps the file the same size
-  var plates=[].slice.call(document.querySelectorAll('#stage .plate'));
-  scenes.forEach(function(sc,i){
-    var art=sc.querySelector('.fscene-art'), p=plates[i];
-    if(!p) return;
-    var el=p.querySelector('img,svg');
-    if(el){ var c=el.cloneNode(true); c.setAttribute('loading','eager'); art.appendChild(c); }
-  });
-  var hv=document.querySelector('.hero-video'), heroImg=document.querySelector('.hero-img');
-  var bg=hv?(hv.getAttribute('poster')||''):(heroImg?heroImg.src:'');
-  if(bg) document.getElementById('filmCoverBg').style.backgroundImage='url("'+bg+'")';
-
-  var STEP=3000, LEAD=900, TAIL=3200;
-  var durs=scenes.map(function(s){ return LEAD+STEP*(s.querySelectorAll('.fline').length-1)+TAIL; });
-  var offs=[], acc=0;
-  durs.forEach(function(d){ offs.push(acc); acc+=d; });
-  var total=acc;
-  scenes.forEach(function(s,i){ var a=s.querySelector('.fscene-art'); if(a) a.style.animationDuration=durs[i]+'ms'; });
-
-  var t=0, playing=false, last=0, raf=0, cur=-1, inView=false;
-
-  function fmt(ms){ ms=Math.max(0,ms|0); var s=Math.round(ms/1000); return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2); }
-
-  function setScene(i){
-    if(i===cur) return;
-    cur=i;
-    scenes.forEach(function(s,k){ s.classList.toggle('is-live',k===i); });
-    scenes[i].querySelectorAll('.fline').forEach(function(l){ l.classList.remove('on'); });
-    kickerEl.textContent=scenes[i].getAttribute('data-kicker')||'';
-    countEl.textContent=(i+1)+' / '+scenes.length;
-  }
-
-  function render(){
-    var i=0;
-    for(var k=0;k<offs.length;k++){ if(t>=offs[k]) i=k; }
-    setScene(i);
-    var local=t-offs[i];
-    scenes[i].querySelectorAll('.fline').forEach(function(l,k){
-      l.classList.toggle('on', local>=LEAD+k*STEP);
-    });
-    fill.style.width=(t/total*100)+'%';
-    timeEl.textContent=fmt(t)+' / '+fmt(total);
-  }
-
-  function stop(){ cancelAnimationFrame(raf); playing=false; bPlay.innerHTML='&#9654;'; }
-  function play(){
-    if(t>=total-40){ t=0; scenes.forEach(function(s){ s.querySelectorAll('.fline').forEach(function(l){ l.classList.remove('on'); }); }); cur=-1; }
-    playing=true; last=0; cover.classList.add('hide'); bPlay.innerHTML='&#10074;&#10074;';
-    cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
-  }
-  function loop(ts){
-    if(!playing) return;
-    if(!last) last=ts;
-    t+=ts-last; last=ts;
-    if(t>=total){ t=total; render(); stop(); bPlay.innerHTML='&#8635;'; return; }
-    render(); raf=requestAnimationFrame(loop);
-  }
-  function goto(i){
-    i=Math.max(0,Math.min(scenes.length-1,i));
-    t=offs[i]; last=0; render();
-  }
-
-  bPlay.addEventListener('click',function(){ playing?stop():play(); });
-  bPrev.addEventListener('click',function(){ goto((cur<0?0:cur)-1); });
-  bNext.addEventListener('click',function(){ goto((cur<0?-1:cur)+1); });
-  track.addEventListener('click',function(e){
-    var r=track.getBoundingClientRect();
-    t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*total; last=0; render();
-  });
-  bFull.addEventListener('click',function(){
-    if(document.fullscreenElement) document.exitFullscreen();
-    else if(stage.requestFullscreen) stage.requestFullscreen();
-  });
-  stage.addEventListener('click',function(e){
-    if(e.target.closest('.film-bar')||e.target.closest('.film-cover')) return;
-    playing?stop():play();
-  });
-
-  var cover_btn=document.getElementById('fcPlay');
-  if(cover_btn) cover_btn.addEventListener('click',function(){ play(); });
-
-  document.addEventListener('keydown',function(e){
-    if(!inView) return;
-    var tag=(e.target.tagName||'').toLowerCase();
-    if(tag==='input'||tag==='textarea'||tag==='select'||tag==='button') return;
-    if(e.code==='Space'){ e.preventDefault(); playing?stop():play(); }
-    else if(e.key==='ArrowRight'){ e.preventDefault(); goto((cur<0?-1:cur)+1); }
-    else if(e.key==='ArrowLeft'){ e.preventDefault(); goto((cur<0?0:cur)-1); }
-  });
-
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ inView=es[0].isIntersecting; },{threshold:.35}).observe(stage);
-  } else { inView=true; }
-
-  render();
-  timeEl.textContent='0:00 / '+fmt(total);
-})();
-
 </script>
 <script>
 
