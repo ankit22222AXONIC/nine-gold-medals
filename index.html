@@ -465,6 +465,28 @@ body.no-chrome #poem .chips{opacity:0;pointer-events:none}
 .ui-toggle:hover{opacity:1;color:var(--ink)}
 body.no-chrome .ui-tools{opacity:.42}
 @media (max-width:700px){.ui-tools{right:12px;bottom:12px}.ui-toggle{padding:12px 16px;font-size:10.5px}}
+
+/* ---------- hear it sung ---------- */
+#song .song-grid{display:grid;grid-template-columns:1.02fr 1fr;gap:30px;align-items:start;margin-top:26px}
+.song-frame{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+  box-shadow:var(--shadow);background:#0b0e13}
+.song-face{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;cursor:pointer;
+  background:#0b0e13 center/cover no-repeat;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.song-clip{margin:0}
+.song-clip .clip-meta{margin-top:11px}
+.song-words{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);
+  padding:20px 22px;max-height:540px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+.song-words .role{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px}
+.song-stanza{padding:12px 14px;border-radius:11px;border:1px solid transparent;cursor:pointer;
+  transition:background .15s ease,border-color .15s ease}
+.song-stanza+.song-stanza{margin-top:5px}
+.song-stanza .song-n{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);opacity:.7;margin-bottom:5px}
+.song-stanza p{font-family:var(--f-serif);font-size:16.5px;line-height:1.58;margin:0;color:var(--ink)}
+.song-stanza.on{background:var(--gold-soft);border-color:var(--gold)}
+.song-note{font-size:14px;color:var(--ink-2);line-height:1.6;margin-top:18px}
+@media (max-width:900px){#song .song-grid{grid-template-columns:1fr}.song-words{max-height:none}}
 </style>
 </head>
 
@@ -806,6 +828,32 @@ body.no-chrome .ui-tools{opacity:.42}
 
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
+<!-- ================= HEAR IT SUNG ================= -->
+<section id="song">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="kicker">Hear it sung</p>
+      <h2>The poem began life as a song</h2>
+      <p>David Roth wrote <i>Nine Gold Medals</i> to be sung, not read &mdash; which is why the lines run on the way they do. Tap to hear the man himself, and follow the words alongside.</p>
+    </div>
+    <div class="song-grid rv">
+      <figure class="clip song-clip" data-id="Q01IhaDUBA0" data-title="David Roth - Nine Gold Medals">
+        <div class="song-frame">
+          <button class="song-face" type="button"
+                  style="background-image:url('https://i.ytimg.com/vi/Q01IhaDUBA0/maxresdefault.jpg')"
+                  aria-label="Play: David Roth, Nine Gold Medals">
+            <span class="clip-play" aria-hidden="true">&#9654;</span>
+          </button>
+        </div>
+        <figcaption class="clip-meta"><b>David Roth &mdash; &ldquo;Nine Gold Medals&rdquo;</b><span>The song, sung by the man who wrote it &middot; captions can be switched on with the CC button</span></figcaption>
+      </figure>
+      <div class="song-words" id="songWords">
+        <span class="role">The words &mdash; tap a stanza to mark where you are</span>
+      </div>
+    </div>
+    <p class="song-note">The sung version differs from your textbook in a few places, as songs do &mdash; the story and the ending are the same. Poem and song &copy; David Roth. The recording plays from its own channel on YouTube and remains the property of the rights holder.</p>
+  </div>
+</section>
 
 <div class="dinkus"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="var(--gold)"/></svg></div>
 
@@ -1070,6 +1118,40 @@ if(fsBtn&&document.documentElement.requestFullscreen){
     fsBtn.textContent=document.fullscreenElement?"Exit full screen":"Full screen";
   });
 }else if(fsBtn){fsBtn.style.display="none"}
+/* ---------- hear it sung: words come from the poem itself; player mounts on tap ---------- */
+var songWords=$("#songWords");
+if(songWords){
+  $$("#poem .stanza").forEach(function(s,i){
+    var p=s.querySelector(".poem");if(!p)return;
+    var clone=p.cloneNode(true);
+    $$(".gloss",clone).forEach(function(g){
+      g.parentNode.replaceChild(document.createTextNode(g.textContent),g);
+    });
+    var d=document.createElement("div");d.className="song-stanza";
+    var n=document.createElement("span");n.className="song-n";n.textContent="Stanza "+(i+1);
+    var pp=document.createElement("p");pp.innerHTML=clone.innerHTML;
+    d.appendChild(n);d.appendChild(pp);
+    d.addEventListener("click",function(){
+      $$(".song-stanza",songWords).forEach(function(x){x.classList.remove("on")});
+      d.classList.add("on");
+    });
+    songWords.appendChild(d);
+  });
+}
+var songFace=$(".song-clip .song-face");
+if(songFace){
+  songFace.addEventListener("click",function(){
+    var card=songFace.closest(".song-clip");
+    var fr=document.createElement("iframe");
+    fr.src="https://www.youtube-nocookie.com/embed/"+card.getAttribute("data-id")+
+           "?autoplay=1&rel=0&modestbranding=1&cc_load_policy=1";
+    fr.setAttribute("allow","accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title",card.getAttribute("data-title")||"Nine Gold Medals");
+    fr.style.cssText="position:absolute;inset:0;width:100%;height:100%;border:0;display:block";
+    songFace.replaceWith(fr);
+  });
+}
 var uiToggle=$("#uiToggle");
 if(uiToggle){
   uiToggle.addEventListener("click",function(){
