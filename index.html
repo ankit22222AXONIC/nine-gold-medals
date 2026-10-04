@@ -395,6 +395,43 @@ footer .madeby b{color:var(--gold);font-weight:600}
 .gpage-plain b{display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.15em;
   text-transform:uppercase;color:#8a6210;margin-bottom:8px}
 @media (max-width:560px){.gpage-plain{font-size:16.5px!important;padding:16px 17px}}
+
+/* ---------- presenter controls: keyboard hint + chrome-hiding ---------- */
+.kbd-hint{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);opacity:.72;margin-left:4px;white-space:nowrap}
+#lanes,.deck-nav,#poem .plate .plate-cap,#poem .chips{transition:opacity .28s ease}
+body.no-chrome #lanes,body.no-chrome .deck-nav,body.no-chrome #poem .plate .plate-cap,
+body.no-chrome #poem .chips{opacity:0;pointer-events:none}
+@media (max-width:900px){.kbd-hint{display:none}}
+
+/* ---------- predict & reveal: the beat before stanza 6 ---------- */
+.predict{position:fixed;inset:0;z-index:210;display:grid;place-items:center;padding:26px;
+  background:rgba(8,10,15,.88);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.predict[hidden]{display:none}
+.predict-inner{width:100%;max-width:740px;max-height:92vh;overflow-y:auto;background:var(--card);
+  border:1px solid var(--line);border-radius:20px;box-shadow:0 34px 90px rgba(0,0,0,.5);padding:38px 42px 30px}
+.predict-kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:10.5px;
+  font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.predict-kicker::before{content:"";width:8px;height:8px;background:var(--gold);border-radius:2px;transform:rotate(45deg)}
+.predict-inner h3{font-size:clamp(22px,3vw,30px);margin:0 0 8px;color:var(--ink)}
+.predict-q{font-size:17px;line-height:1.6;color:var(--ink-2);margin:0 0 22px}
+.predict-opts{display:grid;gap:11px}
+.predict-opt{text-align:left;font-family:inherit;font-size:16.5px;line-height:1.5;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:15px 18px;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease,transform .15s ease}
+.predict-opt:hover{border-color:var(--ink-2);transform:translateY(-1px)}
+.predict-opt.locked{cursor:default;transform:none}
+.predict-opt.is-ans{border-color:#2f8f5b;background:rgba(47,143,91,.14);font-weight:600}
+.predict-opt.is-pick{border-color:#c0483c;background:rgba(192,72,60,.11)}
+.predict-reveal{margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft)}
+.predict-reveal[hidden]{display:none}
+.predict-reveal b{display:block;font-size:18px;color:var(--gold);margin-bottom:7px}
+.predict-reveal p{font-size:16.5px;line-height:1.6;color:var(--ink);margin:0 0 20px}
+.predict-skip{display:block;margin:18px auto 0;background:none;border:0;font-family:var(--f-mono);
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;opacity:.8}
+.predict-skip:hover{opacity:1}
+@media (max-width:560px){.predict-inner{padding:26px 20px 22px}.predict-opt{font-size:15.5px;padding:13px 15px}}
 </style>
 </head>
 
@@ -564,6 +601,7 @@ footer .madeby b{color:var(--gold);font-weight:600}
         <button class="navbtn" id="nextBtn">Next
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
         </button>
+        <span class="kbd-hint">&larr; &rarr; to move &middot; Esc to hide</span>
       </div>
     </div>
 
@@ -866,6 +904,26 @@ footer .madeby b{color:var(--gold);font-weight:600}
 
 </main>
 
+<!-- ================= PAUSE & PREDICT (the beat before stanza 6) ================= -->
+<div class="predict" id="predict" role="dialog" aria-modal="true" aria-labelledby="predictTitle" hidden>
+  <div class="predict-inner">
+    <span class="predict-kicker">Pause &amp; predict</span>
+    <h3 id="predictTitle">The smallest runner has fallen.</h3>
+    <p class="predict-q">The other eight are still running, and the medal is there for the taking. What do they do?</p>
+    <div class="predict-opts">
+      <button class="predict-opt" type="button" data-ok="0">They run on &mdash; the race is theirs to win.</button>
+      <button class="predict-opt" type="button" data-ok="1">They stop, turn back, and lift him to his feet.</button>
+      <button class="predict-opt" type="button" data-ok="0">They wait for him at the finish line.</button>
+    </div>
+    <div class="predict-reveal" id="predictReveal" hidden>
+      <b>They stopped &mdash; every one of them.</b>
+      <p>Eight athletes gave up a race they had trained months for and turned back, one by one, to help a friend. It is the moment the whole poem turns on.</p>
+      <button class="btn" id="predictGo" type="button">Continue to stanza 6 &rarr;</button>
+    </div>
+    <button class="predict-skip" id="predictSkip" type="button">Skip this</button>
+  </div>
+</div>
+
 <script>
 (function(){
 "use strict";
@@ -923,8 +981,11 @@ if(eqGrid){
 
 /* ---------- poem deck ---------- */
 var stanzas=$$(".stanza"),lanes=$$(".lane"),prev=$("#prevBtn"),next=$("#nextBtn"),cur=0;
+var predictDone=false;
 function show(i){
-  cur=Math.max(0,Math.min(stanzas.length-1,i));
+  i=Math.max(0,Math.min(stanzas.length-1,i));
+  if(i===5&&!predictDone){openPredict();return}
+  cur=i;
   stanzas.forEach(function(s){s.classList.toggle("is-active",parseInt(s.getAttribute("data-i"),10)===cur)});
   lanes.forEach(function(l,j){l.classList.toggle("on",j===cur);l.classList.toggle("done",j<cur)});
   prev.disabled=(cur===0);next.disabled=(cur===stanzas.length-1);
@@ -935,10 +996,30 @@ function show(i){
 lanes.forEach(function(l){l.addEventListener("click",function(){show(parseInt(l.getAttribute("data-i"),10))})});
 prev.addEventListener("click",function(){show(cur-1)});
 next.addEventListener("click",function(){show(cur+1)});
+/* ---------- presenter controls: keys drive the deck, Esc clears the chrome ---------- */
+var poemVisible=false,poemSection=$("#poem");
+if(poemSection&&"IntersectionObserver" in window){
+  new IntersectionObserver(function(es){
+    es.forEach(function(en){poemVisible=en.isIntersecting});
+  },{threshold:.3}).observe(poemSection);
+}else{poemVisible=true}
+var chromeHidden=false;
+function toggleChrome(){chromeHidden=!chromeHidden;document.body.classList.toggle("no-chrome",chromeHidden)}
 document.addEventListener("keydown",function(e){
   var tag=(document.activeElement&&document.activeElement.tagName)||"";
   if(/INPUT|TEXTAREA|SELECT/.test(tag))return;
-  if(e.key==="ArrowRight"&&cur<stanzas.length-1){show(cur+1)}
+  if(e.key==="Escape"){
+    if(predictOpen){e.preventDefault();passPredict();return}
+    var gp=$("#gpage");if(gp&&!gp.hidden)return;
+    var pp=$("#pop");if(pp&&pp.classList.contains("show"))return;
+    e.preventDefault();toggleChrome();return;
+  }
+  if(!poemVisible||predictOpen)return;
+  var last=stanzas.length-1;
+  if(e.key==="ArrowRight"||e.key===" "){
+    if(cur<last){e.preventDefault();show(cur+1)}
+    return;
+  }
   if(e.key==="ArrowLeft"&&cur>0){show(cur-1)}
 });
 var stage=$("#stage"),tx=null;
@@ -952,6 +1033,37 @@ if(stage){
   },{passive:true});
 }
 show(0);
+
+/* ---------- pause & predict: the beat before stanza 6 ---------- */
+var predictEl=$("#predict"),predictReveal=$("#predictReveal"),predictGo=$("#predictGo"),
+    predictSkip=$("#predictSkip"),predictOpen=false;
+function openPredict(){
+  if(!predictEl)return;
+  predictOpen=true;predictEl.hidden=false;document.body.style.overflow="hidden";
+  var f=$(".predict-opt",predictEl);if(f)f.focus();
+}
+function closePredict(){
+  if(!predictEl)return;
+  predictOpen=false;predictEl.hidden=true;document.body.style.overflow="";
+}
+function passPredict(){predictDone=true;closePredict();show(5)}
+if(predictEl){
+  $$(".predict-opt",predictEl).forEach(function(opt){
+    opt.addEventListener("click",function(){
+      if(predictEl.classList.contains("done"))return;
+      predictEl.classList.add("done");
+      $$(".predict-opt",predictEl).forEach(function(o){
+        o.classList.add("locked");
+        if(o.getAttribute("data-ok")==="1")o.classList.add("is-ans");
+        else if(o===opt)o.classList.add("is-pick");
+      });
+      if(predictReveal)predictReveal.hidden=false;
+      if(predictGo)predictGo.focus();
+    });
+  });
+  if(predictGo)predictGo.addEventListener("click",passPredict);
+  if(predictSkip)predictSkip.addEventListener("click",passPredict);
+}
 
 /* ---------- glossary popover ---------- */
 var pop=$("#pop"),popK=$(".pop-k",pop),popT=$(".pop-t",pop);
