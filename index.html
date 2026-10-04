@@ -432,6 +432,39 @@ body.no-chrome #poem .chips{opacity:0;pointer-events:none}
   text-decoration:underline;text-underline-offset:3px;opacity:.8}
 .predict-skip:hover{opacity:1}
 @media (max-width:560px){.predict-inner{padding:26px 20px 22px}.predict-opt{font-size:15.5px;padding:13px 15px}}
+
+/* ============ TOUCH / PANEL PASS ============ */
+/* finger-sized tap targets */
+.lane{width:56px;height:46px;font-size:14px}
+.navbtn{min-height:48px;padding:14px 20px;font-size:13px}
+.eq-opt{min-height:48px;padding:14px 20px;font-size:13.5px}
+.opt{min-height:58px;padding:18px 20px;font-size:18px}
+.btn{min-height:52px;padding:16px 26px;font-size:13.5px}
+.gpage-back{min-height:48px;padding:14px 20px}
+.tab{min-height:46px;padding:13px 20px}
+.predict-opt{min-height:58px;padding:16px 20px}
+.predict-skip{padding:14px 18px}
+/* glossary words: bigger hit area without shifting the poem line */
+.gloss{padding:4px 3px;margin:-4px -3px;border-radius:5px}
+/* touch behaviour */
+.lane,.navbtn,.btn,.eq-opt,.opt,.predict-opt,.predict-skip,.game-card,.gpage-back,
+.clip-face,.tab,.ui-toggle{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+#stage{touch-action:pan-y}
+/* on touch there is no hover: stop the lift/highlight sticking after a tap */
+@media (hover:none){
+  .btn:hover,.lane:hover,.navbtn:hover:not(:disabled),.opt:hover:not(:disabled),
+  .game-card:hover,.predict-opt:hover,.gpage-back:hover{transform:none}
+}
+/* on-screen equivalent of the Esc key, for presenting without a keyboard */
+.ui-tools{position:fixed;right:20px;bottom:20px;z-index:120;display:flex;gap:9px;align-items:center}
+.ui-toggle{
+  font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:14px 22px;min-height:48px;cursor:pointer;box-shadow:var(--shadow);opacity:.75;
+  transition:opacity .2s ease,color .2s ease}
+.ui-toggle:hover{opacity:1;color:var(--ink)}
+body.no-chrome .ui-tools{opacity:.42}
+@media (max-width:700px){.ui-tools{right:12px;bottom:12px}.ui-toggle{padding:12px 16px;font-size:10.5px}}
 </style>
 </head>
 
@@ -601,7 +634,7 @@ body.no-chrome #poem .chips{opacity:0;pointer-events:none}
         <button class="navbtn" id="nextBtn">Next
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
         </button>
-        <span class="kbd-hint">&larr; &rarr; to move &middot; Esc to hide</span>
+        <span class="kbd-hint">Swipe or &larr; &rarr; to move</span>
       </div>
     </div>
 
@@ -904,6 +937,11 @@ body.no-chrome #poem .chips{opacity:0;pointer-events:none}
 
 </main>
 
+<div class="ui-tools">
+  <button class="ui-toggle" id="fsBtn" type="button">Full screen</button>
+  <button class="ui-toggle" id="uiToggle" type="button" aria-pressed="false">Hide buttons</button>
+</div>
+
 <!-- ================= PAUSE & PREDICT (the beat before stanza 6) ================= -->
 <div class="predict" id="predict" role="dialog" aria-modal="true" aria-labelledby="predictTitle" hidden>
   <div class="predict-inner">
@@ -1022,14 +1060,35 @@ document.addEventListener("keydown",function(e){
   }
   if(e.key==="ArrowLeft"&&cur>0){show(cur-1)}
 });
-var stage=$("#stage"),tx=null;
+var fsBtn=$("#fsBtn");
+if(fsBtn&&document.documentElement.requestFullscreen){
+  fsBtn.addEventListener("click",function(){
+    if(document.fullscreenElement){document.exitFullscreen()}
+    else{document.documentElement.requestFullscreen().catch(function(){})}
+  });
+  document.addEventListener("fullscreenchange",function(){
+    fsBtn.textContent=document.fullscreenElement?"Exit full screen":"Full screen";
+  });
+}else if(fsBtn){fsBtn.style.display="none"}
+var uiToggle=$("#uiToggle");
+if(uiToggle){
+  uiToggle.addEventListener("click",function(){
+    toggleChrome();
+    uiToggle.textContent=chromeHidden?"Show buttons":"Hide buttons";
+    uiToggle.setAttribute("aria-pressed",chromeHidden?"true":"false");
+  });
+}
+var stage=$("#stage"),tx=null,ty=null,tSwipe=false;
 if(stage){
-  stage.addEventListener("touchstart",function(e){tx=e.touches[0].clientX},{passive:true});
+  stage.addEventListener("touchstart",function(e){
+    if(e.target.closest&&e.target.closest("button,a,.gloss,input,textarea")){tSwipe=false;return}
+    tx=e.touches[0].clientX;ty=e.touches[0].clientY;tSwipe=true;
+  },{passive:true});
   stage.addEventListener("touchend",function(e){
-    if(tx===null)return;
-    var dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>44){show(cur+(dx<0?1:-1))}
-    tx=null;
+    if(!tSwipe||tx===null){tSwipe=false;return}
+    var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4){show(cur+(dx<0?1:-1))}
+    tx=null;ty=null;tSwipe=false;
   },{passive:true});
 }
 show(0);
